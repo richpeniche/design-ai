@@ -75,15 +75,30 @@ const OG_IMAGE_MAP = ${JSON.stringify(imageMap, null, 2)};
   const url = container.getAttribute('data-url');
   if (!url) return;
   const imageUrl = OG_IMAGE_MAP[url];
-  if (!imageUrl) { container.style.display = 'none'; return; }
   const placeholder = container.querySelector('.card-image-placeholder');
   if (!placeholder) return;
+  if (!imageUrl) {
+    const toolName = container.closest('.card').querySelector('.card-name').textContent.trim();
+    const initial = toolName.charAt(0).toUpperCase();
+    const fallback = document.createElement('div');
+    fallback.className = 'card-image-fallback';
+    fallback.textContent = initial;
+    placeholder.replaceWith(fallback);
+    return;
+  }
   const img = document.createElement('img');
   img.src = imageUrl;
   img.alt = '';
   img.loading = 'lazy';
   img.onload = () => { img.style.opacity = '1'; };
-  img.onerror = () => { container.style.display = 'none'; };
+  img.onerror = () => {
+    const toolName = container.closest('.card').querySelector('.card-name').textContent.trim();
+    const initial = toolName.charAt(0).toUpperCase();
+    const fallback = document.createElement('div');
+    fallback.className = 'card-image-fallback';
+    fallback.textContent = initial;
+    img.replaceWith(fallback);
+  };
   placeholder.replaceWith(img);
 }`;
 
@@ -166,6 +181,7 @@ async function main() {
       fetched++;
       console.log(`✓`);
     } else {
+      imageMap[url] = null;
       console.log(`✗`);
     }
     if (i < newUrls.length - 1) await new Promise(r => setTimeout(r, DELAY_MS));
