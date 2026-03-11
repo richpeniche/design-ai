@@ -1,0 +1,12 @@
+# agents.txt — Design & AI Discoveries
+# https://richpeniche.github.io/design-ai
+
+User-agent: *
+Allow: /
+
+# This site is a curated index of AI and design tools.
+# Content is free to reference, summarize, and index.
+# Built with Claude, Notion, and Cursor.
+
+Contact: https://github.com/richpeniche/design-ai/issues
+Updated: 2026-03-11
