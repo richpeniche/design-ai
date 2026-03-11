@@ -1,0 +1,23 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#f0ede8"/>
+
+  <!-- Subtle grid -->
+  <line x1="0" y1="210" x2="1200" y2="210" stroke="#e2ddd7" stroke-width="1"/>
+  <line x1="0" y1="420" x2="1200" y2="420" stroke="#e2ddd7" stroke-width="1"/>
+  <line x1="400" y1="0" x2="400" y2="630" stroke="#e2ddd7" stroke-width="1"/>
+  <line x1="800" y1="0" x2="800" y2="630" stroke="#e2ddd7" stroke-width="1"/>
+
+  <!-- Amber accent bar -->
+  <rect x="80" y="255" width="6" height="120" fill="#e8c547" rx="3"/>
+
+  <!-- Title -->
+  <text x="112" y="322" font-family="Georgia, serif" font-size="74" font-weight="400" fill="#1a1714" letter-spacing="-2">Design &amp; AI</text>
+  <text x="112" y="406" font-family="Georgia, serif" font-size="74" font-weight="400" fill="#6b6560" font-style="italic" letter-spacing="-2">Discoveries</text>
+
+  <!-- Tagline -->
+  <text x="112" y="464" font-family="monospace" font-size="17" fill="#9c958e" letter-spacing="2">26 TOOLS · 11 CATEGORIES · UPDATED MARCH 2026</text>
+
+  <!-- URL watermark -->
+  <text x="1120" y="598" font-family="monospace" font-size="13" fill="#ccc6be" text-anchor="end">richpeniche.github.io/design-ai</text>
+</svg>
