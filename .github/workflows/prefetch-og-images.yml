@@ -1,0 +1,35 @@
+name: Prefetch OG Images
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'   # only runs when index.html changes
+
+permissions:
+  contents: write      # needed so the Action can commit back
+
+jobs:
+  prefetch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run prefetch script
+        run: node prefetch-images.mjs
+
+      - name: Commit updated index.html
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          # Only commit if index.html actually changed
+          git diff --cached --quiet || git commit -m "chore: update OG image cache [skip ci]"
+          git push
