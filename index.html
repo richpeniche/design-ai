@@ -48,7 +48,7 @@
     --text-primary: #1a1714;
     --text-secondary: #6b6560;
     --text-tertiary: #9c958e;
-    --accent: #e8c547;
+    --accent: #f2f2f2;
     --accent-dim: rgba(232, 197, 71, 0.15);
     --tag-stable: #d4edda;
     --tag-stable-text: #1a5c2a;
@@ -566,7 +566,7 @@
     right: 0;
     height: 40vh;
     background: #0e0d0c;
-    border-top: 1.5px solid #3a3835;
+    border-top: 1px solid #2a2826;
     z-index: 300;
     display: none;
     transform: translateY(100%);
@@ -585,7 +585,18 @@
   #slash-terminal {
     flex: 1;
     overflow-y: auto;
-    padding: 24px 32px 16px;
+    padding: 24px 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  #slash-terminal-inner {
+    max-width: 860px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 32px;
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -599,7 +610,7 @@
   }
 
   .slash-line {
-    color: #6b6662;
+    color: #5a5652;
     line-height: 1.6;
   }
 
@@ -616,7 +627,7 @@
   }
 
   .slash-line.highlight {
-    color: #e8c547;
+    color: #f2f2f2;
   }
 
   #slash-input-row {
@@ -624,12 +635,12 @@
     align-items: center;
     gap: 10px;
     padding-top: 8px;
-    border-top: 1px solid #2e2c29;
+    border-top: 1px solid #1e1d1c;
     margin-top: 8px;
   }
 
   #slash-prompt {
-    color: #e8c547;
+    color: #f2f2f2;
     user-select: none;
   }
 
@@ -641,7 +652,7 @@
     color: #eeece7;
     font-family: 'DM Mono', monospace;
     font-size: 13px;
-    caret-color: #e8c547;
+    caret-color: #f2f2f2;
   }
 
   /* ── Agent View ── */
@@ -2566,10 +2577,12 @@ document.addEventListener('keydown', e => {
 <!-- ── Agent View ── -->
 <div id="slash-drawer">
   <div id="slash-terminal">
-    <div id="slash-output"></div>
-    <div id="slash-input-row">
-      <span id="slash-prompt">&gt;</span>
-      <input id="slash-input" type="text" autocomplete="off" spellcheck="false" placeholder="https://..." />
+    <div id="slash-terminal-inner">
+      <div id="slash-output"></div>
+      <div id="slash-input-row">
+        <span id="slash-prompt">&gt;</span>
+        <input id="slash-input" type="text" autocomplete="off" spellcheck="false" placeholder="https://..." />
+      </div>
     </div>
   </div>
 </div>
@@ -2695,7 +2708,7 @@ function openSlash() {
 }
 
 function closeSlash() {
-  printLine('Goodbye.', 'highlight');
+  typeLines([['Goodbye.', 'highlight']], () => {});
   setTimeout(() => {
     const d = document.getElementById('slash-drawer');
     d.style.transform = 'translateY(100%)';
@@ -2782,12 +2795,58 @@ document.addEventListener('keydown', e => {
   }
 });
 
+function typeLines(lines, done) {
+  let i = 0;
+  function nextLine() {
+    if (i >= lines.length) { if (done) done(); return; }
+    const [text, type] = Array.isArray(lines[i]) ? lines[i] : [lines[i], null];
+    i++;
+    if (!text) {
+      printLine('', type);
+      setTimeout(nextLine, 300);
+      return;
+    }
+    const el = document.createElement('div');
+    el.className = 'slash-line' + (type ? ' ' + type : '');
+    document.getElementById('slash-output').appendChild(el);
+    document.getElementById('slash-terminal').scrollTop = 999999;
+    let c = 0;
+    const charDelay = 38;
+    function typeChar() {
+      if (c <= text.length) {
+        el.textContent = text.slice(0, c);
+        c++;
+        setTimeout(typeChar, charDelay);
+      } else {
+        setTimeout(nextLine, 420);
+      }
+    }
+    typeChar();
+  }
+  nextLine();
+}
+
 document.getElementById('slash-input').addEventListener('keydown', e => {
   if (e.key !== 'Enter') return;
   const val = document.getElementById('slash-input').value.trim();
   if (!val) return;
   const exit = ['close','exit','quit'];
   if (exit.includes(val.toLowerCase())) { closeSlash(); return; }
+
+  if (!val.startsWith('https://')) {
+    document.getElementById('slash-input').value = '';
+    const lines = [
+      ['Sorry.', 'active'],
+      ['My abilities are limited.', 'active'],
+      ['You must share a valid entry.', 'active'],
+      [''],
+      ['What is a valid entry?', null],
+      ['That, amigo, is the right question.', 'highlight'],
+    ];
+    typeLines(lines);
+    return;
+  }
+
   runSlash(val);
 });
 </script>
