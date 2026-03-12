@@ -2678,304 +2678,118 @@ function renderAgentView() {
 </script>
 <script>
 // ── Slash Command ──
-const CATEGORY_ORDER = [
-  'Figma MCPs', 'Design-to-Code', 'Vibe-Code / Builders',
-  'AI Visual Generation', 'UI Components & Systems', 'AI Design Skills',
-  'Research', 'Web Publishing', 'Presentations', 'Marketing & Brand', 'Color & Tokens'
-];
-
-let slashState = null;
-
-function getSlashDrawer() {
-  return document.getElementById('slash-drawer');
+function printLine(text, type) {
+  const el = document.createElement('div');
+  el.className = 'slash-line' + (type ? ' ' + type : '');
+  el.innerHTML = text;
+  document.getElementById('slash-output').appendChild(el);
+  document.getElementById('slash-terminal').scrollTop = 999999;
 }
 
-function getSlashTerminal() {
-  return document.getElementById('slash-terminal');
+function openSlash() {
+  document.getElementById('slash-drawer').classList.add('visible');
+  document.getElementById('slash-output').innerHTML = '';
+  printLine('/ ADD NEW TOOL', 'highlight');
+  printLine('Paste a tool URL and press Enter.');
+  setTimeout(() => document.getElementById('slash-input').focus(), 50);
 }
 
-function getSlashOutput() {
-  return document.getElementById('slash-output');
-}
-
-function getSlashInput() {
-  return document.getElementById('slash-input');
-}
-
-function getSlashInputRow() {
-  return document.getElementById('slash-input-row');
-}
-
-function slashIsVisible() {
-  const drawer = getSlashDrawer();
-  return !!drawer && drawer.classList.contains('visible');
-}
-
-function slashScrollToBottom() {
-  const terminal = getSlashTerminal();
-  if (terminal) {
-    terminal.scrollTop = terminal.scrollHeight;
-  }
-}
-
-function slashPrintLine(text, variant) {
-  const output = getSlashOutput();
-  if (!output) return null;
-  const line = document.createElement('div');
-  line.className = 'slash-line';
-  if (variant) line.classList.add(variant);
-  line.textContent = text;
-  output.appendChild(line);
-  slashScrollToBottom();
-  return line;
-}
-
-function slashPrintHtml(html, variant) {
-  const output = getSlashOutput();
-  if (!output) return null;
-  const line = document.createElement('div');
-  line.className = 'slash-line';
-  if (variant) line.classList.add(variant);
-  line.innerHTML = html;
-  output.appendChild(line);
-  slashScrollToBottom();
-  return line;
-}
-
-function slashResetState() {
-  slashState = {
-    running: false,
-    url: '',
-    name: '',
-    description: ''
-  };
-  const output = getSlashOutput();
-  if (output) output.innerHTML = '';
-  const input = getSlashInput();
-  if (input) {
-    input.value = '';
-    input.placeholder = 'https://...';
-    input.disabled = false;
-  }
-  const row = getSlashInputRow();
-  if (row) {
-    row.style.display = 'flex';
-    row.style.borderTopColor = '#2e2c29';
-  }
-}
-
-function openSlashDrawer() {
-  const drawer = getSlashDrawer();
-  if (!drawer) return;
-  slashResetState();
-  drawer.classList.add('visible');
-  slashPrintLine('/ ADD NEW TOOL', 'highlight');
-  slashPrintLine('Paste a tool URL and press Enter.');
-  const row = getSlashInputRow();
-  if (row) {
-    row.style.borderTopColor = 'transparent';
-  }
-  const input = getSlashInput();
-  if (input) {
-    setTimeout(() => input.focus(), 10);
-  }
-}
-
-function slashGoodbyeAndClose() {
-  const input = getSlashInput();
-  if (input) input.disabled = true;
-  slashPrintLine('Goodbye.', 'highlight');
+function closeSlash() {
+  printLine('Goodbye.', 'highlight');
   setTimeout(() => {
-    const drawer = getSlashDrawer();
-    if (drawer) drawer.classList.remove('visible');
-    slashResetState();
+    const d = document.getElementById('slash-drawer');
+    d.style.transform = 'translateY(100%)';
+    setTimeout(() => {
+      d.classList.remove('visible');
+      d.style.transform = '';
+      document.getElementById('slash-output').innerHTML = '';
+      document.getElementById('slash-input').value = '';
+    }, 240);
   }, 800);
 }
 
-async function slashFetchMetadata(url) {
-  const line = slashPrintLine('Fetching page metadata...');
-  let title = '';
-  let description = '';
+async function runSlash(url) {
+  document.getElementById('slash-input-row').style.display = 'none';
+  printLine('URL received: ' + url);
+
+  printLine('Fetching page metadata...');
+  let name = new URL(url).hostname.replace('www.', '');
+  let description = '—';
   try {
-    const mlRes = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(url)}`);
-    const mlJson = await mlRes.json();
-    if (mlJson.status === 'success') {
-      title = mlJson.data?.title || '';
-      description = mlJson.data?.description || '';
+    const ml = await fetch('https://api.microlink.io/?url=' + encodeURIComponent(url));
+    const mlData = await ml.json();
+    if (mlData.status === 'success') {
+      if (mlData.data.title) name = mlData.data.title;
+      if (mlData.data.description) description = mlData.data.description.slice(0, 200);
+      printLine('  ✓ Metadata fetched', 'ok');
+      printLine('  name: ' + name);
+      printLine('  description: ' + description.slice(0, 100) + '...');
+    } else {
+      printLine('  ✗ Could not fetch metadata — using hostname as name', 'err');
     }
-    if (line) {
-      line.textContent = '  ✓ Metadata fetched';
-      line.classList.add('ok');
-    }
-  } catch (e) {
-    if (line) {
-      line.textContent = '  ✗ Could not fetch metadata — using URL as name';
-      line.classList.add('err');
-    }
-    try {
-      const u = new URL(url);
-      title = u.hostname;
-    } catch (_) {
-      title = url;
-    }
-    description = '';
+  } catch(e) {
+    printLine('  ✗ Metadata fetch failed — using hostname as name', 'err');
   }
 
-  slashState.name = title || url;
-  slashState.description = description || '';
+  printLine('Building tool entry...');
+  const entry = {
+    url, name,
+    category: 'Research',
+    maturity: 'Beta',
+    whatItIs: description,
+    whatItIsNot: '—',
+    speedAdvantage: '—',
+    whatsGreatFor: '—',
+    flowInSteps: '—'
+  };
+  printLine('  ✓ Entry built', 'ok');
 
-  if (slashState.description) {
-    const shortDesc = slashState.description.length > 100
-      ? `${slashState.description.slice(0, 100)}...`
-      : slashState.description;
-    slashPrintLine(`  name: ${slashState.name}`);
-    slashPrintLine(`  description: ${shortDesc}`);
-  } else {
-    slashPrintLine(`  name: ${slashState.name}`);
-  }
-}
-
-async function slashHandleInput() {
-  const input = getSlashInput();
-  if (!slashState || !input) return;
-  const raw = input.value.trim();
-
-  if (!raw) {
-    return;
-  }
-
-  const lower = raw.toLowerCase();
-  if (['close', 'exit', 'quit'].includes(lower)) {
-    slashGoodbyeAndClose();
-    return;
-  }
-
-  if (slashState.running) {
-    // While a run is in progress, only allow close/exit/quit (handled above)
-    return;
-  }
-
-  // First and only required user input: URL
-  slashState.running = true;
-  slashState.url = raw;
-  input.value = '';
-
-  const row = getSlashInputRow();
-  if (row) {
-    row.style.display = 'none';
-  }
-
-  slashPrintLine(`URL received: ${slashState.url}`);
-  await slashFetchMetadata(slashState.url);
-  await slashRunGitHubFlow();
-}
-
-async function slashRunGitHubFlow() {
-  if (!slashState) return;
-
-  const {
-    url,
-    name,
-    description
-  } = slashState;
-
-  if (!url || !name) {
-    slashPrintLine('URL and Name are required.', 'err');
-    return;
-  }
-
-  const category = 'Research';
-  const maturity = 'Beta';
-
-  slashPrintLine('Building tool entry...');
-
-  const cleanWhatItIs = (description || '').trim();
-  const whatItIs = cleanWhatItIs
-    ? (cleanWhatItIs.length > 200 ? `${cleanWhatItIs.slice(0, 200)}...` : cleanWhatItIs)
-    : url;
-
-  const whatItIsNot = '—';
-  const speedAdvantage = '—';
-  const whatsGreatFor = '—';
-  const flowInSteps = '—';
-
-  slashPrintLine('  ✓ Entry built', 'ok');
-
+  printLine('Getting branch reference...');
   try {
-  try {
-    // After entry is built, call serverless function
-    slashPrintLine('Getting branch reference...', 'active');
-
-    const response = await fetch('/api/add-tool', {
+    const res = await fetch('/api/add-tool', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        url, name, category, maturity,
-        whatItIs, whatItIsNot, speedAdvantage, whatsGreatFor, flowInSteps
-      })
+      body: JSON.stringify(entry)
     });
+    const result = await res.json();
+    if (!res.ok) throw new Error(result.error || 'Server error');
 
-    const result = await response.json();
-
-    if (!response.ok) throw new Error(result.error || 'Server error');
-
-    // Print success steps
-    slashPrintLine('  ✓ Branch created', 'ok');
-    slashPrintLine('  ✓ File patched', 'ok');
-    slashPrintLine('  ✓ Committed to branch', 'ok');
-    slashPrintLine('  ✓ Pull request opened', 'ok');
-    slashPrintLine('', '');
-    if (result.pr_url) {
-      slashPrintHtml(`PR ready → <a href="${result.pr_url}" target="_blank" rel="noopener">${result.pr_url}</a>`, 'highlight');
-      slashPrintLine('', '');
-    }
-    slashPrintLine('Type \'close\', \'exit\', or press ESC to dismiss.', '');
-
-    const row = getSlashInputRow();
-    const input = getSlashInput();
-    if (row) {
-      row.style.display = 'flex';
-      row.style.borderTopColor = '#2e2c29';
-    }
-    if (input) {
-      input.value = '';
-      input.disabled = false;
-      setTimeout(() => input.focus(), 10);
-    }
-  } catch (e) {
-    slashPrintLine(`Error: ${e.message || e}`, 'err');
-    slashPrintLine(`Type 'close', 'exit', or press ESC to dismiss.`);
+    printLine('  ✓ Branch created', 'ok');
+    printLine('  ✓ File patched', 'ok');
+    printLine('  ✓ Committed to branch', 'ok');
+    printLine('  ✓ Pull request opened', 'ok');
+    printLine('');
+    printLine('PR ready → <a href=\"' + result.pr_url + '\" target=\"_blank\" rel=\"noopener\">' + result.pr_url + '</a>', 'highlight');
+    printLine('');
+    printLine(\"Type 'close', 'exit', or press ESC to dismiss.\");
+  } catch(e) {
+    printLine('  ✗ ' + e.message, 'err');
+    printLine(\"Type 'close', 'exit', or press ESC to dismiss.\");
   }
+
+  document.getElementById('slash-input-row').style.display = 'flex';
+  document.getElementById('slash-input').value = '';
+  document.getElementById('slash-input').focus();
 }
 
-function getNextCategory(category) {
-  const idx = CATEGORY_ORDER.indexOf(category);
-  return CATEGORY_ORDER[idx + 1] || 'END';
-}
-
-// Keyboard listeners
 document.addEventListener('keydown', e => {
-  const activeTag = document.activeElement.tagName;
-  const isFormElement = ['INPUT','TEXTAREA','SELECT'].includes(activeTag) || document.activeElement.isContentEditable;
-  if (e.key === '/' && !isFormElement) {
+  if (e.key === '/' && !['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) {
     e.preventDefault();
-    openSlashDrawer();
+    openSlash();
   }
-  if (e.key === 'Escape' && slashIsVisible()) {
-    e.preventDefault();
-    slashGoodbyeAndClose();
+  if (e.key === 'Escape' && document.getElementById('slash-drawer').classList.contains('visible')) {
+    closeSlash();
   }
 });
 
-const slashInputEl = document.getElementById('slash-input');
-if (slashInputEl) {
-  slashInputEl.addEventListener('keydown', e => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      slashHandleInput();
-    }
-  });
-}
+document.getElementById('slash-input').addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  const val = document.getElementById('slash-input').value.trim();
+  if (!val) return;
+  const exit = ['close','exit','quit'];
+  if (exit.includes(val.toLowerCase())) { closeSlash(); return; }
+  runSlash(val);
+});
 </script>
 </body>
 </html>
