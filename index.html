@@ -2759,12 +2759,12 @@ async function runSlash(url) {
     printLine('  ✓ Committed to branch', 'ok');
     printLine('  ✓ Pull request opened', 'ok');
     printLine('');
-    printLine('PR ready → <a href=\"' + result.pr_url + '\" target=\"_blank\" rel=\"noopener\">' + result.pr_url + '</a>', 'highlight');
+    printLine('PR ready → <a href="' + result.pr_url + '" target="_blank" rel="noopener">' + result.pr_url + '</a>', 'highlight');
     printLine('');
-    printLine(\"Type 'close', 'exit', or press ESC to dismiss.\");
+    printLine("Type 'close', 'exit', or press ESC to dismiss.");
   } catch(e) {
     printLine('  ✗ ' + e.message, 'err');
-    printLine(\"Type 'close', 'exit', or press ESC to dismiss.\");
+    printLine("Type 'close', 'exit', or press ESC to dismiss.");
   }
 
   document.getElementById('slash-input-row').style.display = 'flex';
