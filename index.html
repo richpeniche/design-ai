@@ -1,0 +1,2981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LS5YYQNN5K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LS5YYQNN5K');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design & AI Discoveries</title>
+<!-- Favicon — inline SVG, no extra file needed -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231a1714'/><text x='50%25' y='50%25' font-size='18' text-anchor='middle' dominant-baseline='central' font-family='Georgia,serif' fill='%23e8c547'>D</text></svg>">
+
+<!-- Primary meta -->
+<meta name="description" content="A curated index of tools at the intersection of design and AI — what they are, what they're not, and how they fit your workflow.">
+<meta name="author" content="Rich Peniche">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://richpeniche.github.io/design-ai/">
+<meta property="og:title" content="Design & AI Discoveries">
+<meta property="og:description" content="A curated index of 26 tools at the intersection of design and AI — what they are, what they're not, and how they fit your workflow.">
+<meta property="og:image" content="https://richpeniche.github.io/design-ai/og-image.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Design & AI Discoveries">
+<meta name="twitter:description" content="A curated index of 26 tools at the intersection of design and AI — what they are, what they're not, and how they fit your workflow.">
+<meta name="twitter:image" content="https://richpeniche.github.io/design-ai/og-image.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #f0ede8;
+    --surface: #faf9f7;
+    --surface-hover: #ffffff;
+    --border: #e2ddd7;
+    --border-strong: #ccc6be;
+    --text-primary: #1a1714;
+    --text-secondary: #6b6560;
+    --text-tertiary: #9c958e;
+    --accent: #e8c547;
+    --accent-dim: rgba(232, 197, 71, 0.15);
+    --tag-stable: #d4edda;
+    --tag-stable-text: #1a5c2a;
+    --tag-beta: #fff3cd;
+    --tag-beta-text: #6b4c00;
+    --tag-experimental: #fde8d8;
+    --tag-experimental-text: #7a3010;
+    --tag-active: #fde8e8;
+    --tag-active-text: #7a1010;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-pill: 100px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+
+  /* ─── HEADER ─── */
+  .site-header {
+    text-align: center;
+    padding: 72px 24px 48px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  .site-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(44px, 7vw, 68px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+
+  .site-title em {
+    font-style: italic;
+    color: var(--text-secondary);
+  }
+
+  .site-sub {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    font-weight: 400;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .tool-stats {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text-tertiary);
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  /* ─── STICKY FILTER BAR ─── */
+  .filter-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    backdrop-filter: blur(12px);
+  }
+
+  .filter-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 14px 0;
+    scrollbar-width: none;
+  }
+
+  .filter-inner::-webkit-scrollbar { display: none; }
+
+  .filter-btn {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--border-strong);
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .filter-btn:hover {
+    background: var(--surface);
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+  }
+
+  .filter-btn.active {
+    background: var(--text-primary);
+    color: var(--bg);
+    border-color: var(--text-primary);
+  }
+
+  .filter-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    opacity: 0.6;
+  }
+
+  .filter-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border-strong);
+    flex-shrink: 0;
+    margin: 0 4px;
+  }
+
+  /* ─── MAIN GRID ─── */
+  .main {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+
+  /* ─── CARD ─── */
+  .card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    background: var(--surface-hover);
+    border-color: var(--border-strong);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.07), 0 2px 6px rgba(0,0,0,0.04);
+  }
+
+  .card-image {
+    margin: -22px -22px 14px -22px;
+    width: calc(100% + 44px);
+    height: 180px;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    background: var(--bg);
+    flex-shrink: 0;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    object-position: center top;
+    display: block;
+  }
+
+  .card-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--border) 0%, var(--bg) 100%);
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  .card-image-fallback {
+    width: 100%;
+    height: 100%;
+    background: #6b6662;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Instrument Serif', serif;
+    font-size: 48px;
+    color: #eeece7;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .card-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 26px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    flex: 1;
+  }
+
+  .card-arrow {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s, border-color 0.15s;
+    color: var(--text-tertiary);
+  }
+
+  .card:hover .card-arrow {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+    color: var(--bg);
+  }
+
+  .card-arrow svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .card-what {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    flex: 1;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  .card-category {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.02em;
+  }
+
+  .maturity-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .tag-stable    { background: var(--tag-stable);       color: var(--tag-stable-text); }
+  .tag-beta      { background: var(--tag-beta);         color: var(--tag-beta-text); }
+  .tag-experimental { background: var(--tag-experimental); color: var(--tag-experimental-text); }
+  .tag-active    { background: var(--tag-active);       color: var(--tag-active-text); }
+
+  .detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .detail-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-tertiary);
+  }
+
+  .detail-value {
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .detail-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 2px;
+  }
+
+  .step-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: var(--bg);
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .card-website-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    background: var(--text-primary);
+    color: var(--bg);
+    font-family: 'Syne', sans-serif;
+    font-size: 12.5px;
+    font-weight: 500;
+    text-decoration: none;
+    margin-top: 4px;
+    align-self: flex-start;
+    transition: opacity 0.15s;
+  }
+
+  .card-website-btn:hover { opacity: 0.8; }
+
+  /* ─── HIDDEN STATE ─── */
+  .card.hidden { display: none; }
+
+  /* ─── EMPTY STATE ─── */
+  .empty-state {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text-tertiary);
+    font-size: 14px;
+  }
+
+  /* ─── FOOTER ─── */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 20px 24px;
+  }
+
+  .footer-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .footer-made-with {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .footer-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.03em;
+  }
+
+  .footer-tools {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .footer-tool {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .footer-tool:hover { color: var(--text-primary); }
+  .footer-tool--struck { cursor: default; opacity: 0.5; }
+  .footer-tool--struck:hover { color: var(--text-tertiary); }
+
+  /* ── Agent Toggle ── */
+  #agent-toggle {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 200;
+    background: #1a1917;
+    border: 1.5px solid #3a3835;
+    border-radius: 100px;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    user-select: none;
+  }
+  #agent-toggle:hover { border-color: #5a5855; box-shadow: 0 6px 32px rgba(0,0,0,0.45); }
+
+  .toggle-option {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: #6b6662;
+    padding: 2px 10px;
+    border-radius: 100px;
+    transition: color 0.15s, background 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .toggle-option.active {
+    color: #eeece7;
+    background: #2e2c29;
+  }
+  .toggle-radio {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .toggle-radio::after {
+    content: '';
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .toggle-option.active .toggle-radio::after { opacity: 1; }
+
+  /* ── Slash Command Drawer ── */
+  #slash-drawer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40vh;
+    background: #0e0d0c;
+    border-top: 1.5px solid #3a3835;
+    z-index: 300;
+    display: none;
+    transform: translateY(100%);
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: #c8c4be;
+  }
+
+  #slash-drawer.visible {
+    display: flex;
+    flex-direction: column;
+    transform: translateY(0);
+  }
+
+  #slash-terminal {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 32px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  #slash-output {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .slash-line {
+    color: #6b6662;
+    line-height: 1.6;
+  }
+
+  .slash-line.active {
+    color: #c8c4be;
+  }
+
+  .slash-line.ok {
+    color: #7ec87e;
+  }
+
+  .slash-line.err {
+    color: #e87e7e;
+  }
+
+  .slash-line.highlight {
+    color: #e8c547;
+  }
+
+  #slash-input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 8px;
+    border-top: 1px solid #2e2c29;
+    margin-top: 8px;
+  }
+
+  #slash-prompt {
+    color: #e8c547;
+    user-select: none;
+  }
+
+  #slash-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #eeece7;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    caret-color: #e8c547;
+  }
+
+  /* ── Agent View ── */
+  #agent-view {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 190;
+    background: #0e0d0c;
+    overflow-y: auto;
+    font-family: 'DM Mono', monospace;
+    color: #c8c4be;
+    padding: 48px 0 120px;
+  }
+  #agent-view.visible { display: block; }
+
+  .agent-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .agent-header {
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #2a2826;
+  }
+  .agent-site-name {
+    font-size: 13px;
+    color: #7a7672;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .agent-tagline {
+    font-size: 15px;
+    color: #eeece7;
+    line-height: 1.5;
+  }
+  .agent-meta {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #5a5652;
+  }
+
+  .agent-section {
+    margin-bottom: 40px;
+  }
+  .agent-section-title {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: #5a5652;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1e1d1c;
+  }
+
+  .agent-tool {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #1a1917;
+  }
+  .agent-tool:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .agent-tool-name {
+    font-size: 14px;
+    color: #eeece7;
+    margin-bottom: 6px;
+  }
+  .agent-tool-name a { color: inherit; text-decoration: none; }
+  .agent-tool-name a:hover { color: #a8d8a8; }
+
+  .agent-field {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #8a8682;
+    margin-bottom: 2px;
+    display: flex;
+    gap: 8px;
+  }
+  .agent-field-key {
+    color: #5a5652;
+    flex-shrink: 0;
+    min-width: 140px;
+  }
+  .agent-field-val { color: #a8a4a0; }
+
+  .agent-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .agent-tag--stable { background: #1a2e1a; color: #6baa6b; }
+  .agent-tag--beta { background: #2a2315; color: #c89b4a; }
+  .agent-tag--active { background: #1a1e2e; color: #6a8acc; }
+  .agent-tag--experimental { background: #2e1a1a; color: #cc6a6a; }
+
+  .agent-article {
+    font-size: 12px;
+    line-height: 1.7;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+  .agent-article a { color: #a8d8a8; text-decoration: none; }
+  .agent-article a:hover { text-decoration: underline; }
+  .agent-article-meta { color: #5a5652; flex-shrink: 0; }
+
+  .agent-post {
+    font-size: 12px;
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .agent-post a { color: #a8a4e8; text-decoration: none; }
+  .agent-post a:hover { text-decoration: underline; }
+  .agent-post-meta { color: #5a5652; }
+
+  .agent-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 14px;
+    background: #6baa6b;
+    margin-left: 4px;
+    vertical-align: middle;
+    animation: blink 1.1s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .footer-dot {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+  }
+
+  .footer-icon {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    opacity: 0.75;
+    vertical-align: middle;
+  }
+
+  .footer-repo {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .footer-repo:hover { color: var(--text-primary); }
+
+  .modal-hidden { display: none; }
+
+  #modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(20, 18, 16, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1000;
+    align-items: center; justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  #modal-backdrop.modal-open {
+    display: flex;
+    opacity: 1;
+  }
+
+  #modal {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    width: min(680px, 100%);
+    max-height: 88vh;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transform: translateY(16px) scale(0.98);
+    opacity: 0;
+    transition: transform 0.22s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.2s ease;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  #modal-backdrop.modal-open #modal {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  #modal-image {
+    width: 100%; height: 200px;
+    background: linear-gradient(135deg, #1a1714 0%, #2d2318 40%, #1a1714 100%);
+    flex-shrink: 0; position: relative; overflow: hidden;
+  }
+
+  #modal-image img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  #modal-image-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, var(--surface) 100%);
+    pointer-events: none;
+  }
+
+  #modal-header {
+    padding: 24px 28px 0;
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: 16px;
+    flex-shrink: 0;
+  }
+
+  #modal-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px; letter-spacing: 0.06em;
+    color: var(--text-tertiary); margin-bottom: 6px;
+  }
+
+  #modal-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 38px; line-height: 1.1;
+    letter-spacing: -0.02em; margin-bottom: 10px;
+  }
+
+  #modal-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  #modal-close {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1.5px solid var(--border); background: transparent;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: var(--text-tertiary); flex-shrink: 0;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  #modal-close:hover { background: var(--text-primary); color: var(--bg); border-color: var(--text-primary); }
+
+  #modal-body {
+    overflow-y: auto; padding: 24px 28px 28px;
+    display: flex; flex-direction: column; gap: 20px; flex: 1;
+    scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+  }
+
+  #modal-description {
+    font-size: 16px; line-height: 1.65;
+    color: var(--text-secondary);
+    padding-bottom: 20px; border-bottom: 1px solid var(--border);
+  }
+
+  #modal-facts {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+
+  .modal-fact {
+    display: flex; flex-direction: column; gap: 5px;
+    padding: 14px 16px;
+    background: var(--bg); border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+  .modal-fact.full { grid-column: 1 / -1; }
+
+  .modal-fact-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-tertiary);
+  }
+
+  .modal-fact-value {
+    font-size: 15px; line-height: 1.5; color: var(--text-secondary);
+  }
+
+  .modal-fact-value.not { font-style: italic; color: var(--text-tertiary); }
+
+  #modal-flow { display: flex; flex-direction: column; }
+
+  .flow-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-tertiary);
+    margin-bottom: 12px;
+  }
+
+  .flow-step {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .flow-step:last-child { border-bottom: none; }
+
+  .flow-num {
+    font-family: 'DM Mono', monospace; font-size: 12px;
+    color: var(--accent); font-weight: 500;
+    flex-shrink: 0; width: 20px; padding-top: 1px;
+  }
+
+  .flow-text { font-size: 15px; line-height: 1.5; color: var(--text-secondary); }
+
+  #modal-footer {
+    padding: 16px 28px 20px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 12px;
+    flex-shrink: 0; background: var(--surface);
+  }
+
+  #modal-hint {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; color: var(--text-tertiary);
+    display: flex; align-items: center; gap: 4px;
+  }
+
+  .kbd {
+    padding: 2px 6px;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px; font-size: 11px;
+  }
+
+  #modal-footer-right { display: flex; align-items: center; gap: 10px; }
+
+  #modal-nav { display: flex; gap: 6px; }
+
+  .nav-btn {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1.5px solid var(--border); background: transparent;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: var(--text-secondary); font-size: 15px;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .nav-btn:hover { background: var(--text-primary); color: var(--bg); border-color: var(--text-primary); }
+
+  #modal-visit-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 20px;
+    background: var(--text-primary); color: var(--bg);
+    border-radius: var(--radius-pill);
+    font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  #modal-visit-btn:hover { opacity: 0.82; }
+
+  /* ─── VIEW SWITCHER ─── */
+  .view-section { display: none; }
+  .view-section.active { display: block; }
+
+  /* ─── ARTICLES VIEW ─── */
+  .articles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+
+  .article-row {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .article-row:hover {
+    transform: translateY(-1px);
+    background: var(--surface-hover);
+    border-color: var(--border-strong);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  .article-og {
+    width: 120px;
+    height: 80px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--bg);
+    border: 1px solid var(--border);
+  }
+
+  .article-og img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .article-og-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--border) 0%, var(--bg) 100%);
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  .article-og-fallback {
+    width: 100%;
+    height: 100%;
+    background: #6b6662;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    color: #eeece7;
+  }
+
+  .article-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .article-headline {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+  }
+
+  .article-description {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .article-author {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+
+  .article-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+
+  .article-meta-dot {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--border-strong);
+  }
+
+  .article-arrow {
+    margin-left: auto;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    align-self: flex-start;
+    color: var(--text-tertiary);
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+
+  .article-row:hover .article-arrow {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+    color: var(--bg);
+  }
+
+  .article-row-inner {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  /* ─── POSTS VIEW ─── */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+
+  .post-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .post-card:hover {
+    transform: translateY(-2px);
+    background: var(--surface-hover);
+    border-color: var(--border-strong);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+  }
+
+  .post-og {
+    width: 100%;
+    height: 140px;
+    overflow: hidden;
+    background: var(--bg);
+    flex-shrink: 0;
+  }
+
+  .post-og img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .post-og-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--border) 0%, var(--bg) 100%);
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  .post-og-fallback {
+    width: 100%;
+    height: 100%;
+    background: #6b6662;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px;
+    color: #eeece7;
+  }
+
+  .post-og-fallback[data-source="x"] {
+    background: #000;
+    color: #fff;
+  }
+
+  .post-og-fallback[data-source="linkedin"] {
+    background: #0a66c2;
+    color: #fff;
+  }
+
+  .post-card-body {
+    padding: 16px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .post-source-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.04em;
+  }
+
+  .post-source-icon {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    opacity: 0.7;
+  }
+
+  .post-headline {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px;
+    line-height: 1.3;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .post-description {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    flex: 1;
+  }
+
+  .post-author {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ─── SECTION LABEL IN VIEWS ─── */
+  .view-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .view-count {
+    font-size: 11px;
+    opacity: 0.7;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    .tool-grid { grid-template-columns: 1fr; }
+
+    /* Modal — full screen sheet on mobile */
+    #modal-backdrop { padding: 0; align-items: flex-end; }
+    #modal {
+      width: 100%;
+      max-height: 92vh;
+      border-radius: 20px 20px 0 0;
+      transform: translateY(100%);
+    }
+    #modal-backdrop.modal-open #modal { transform: translateY(0); }
+
+    /* Modal header padding tighter */
+    #modal-header { padding: 20px 20px 0; }
+    #modal-body { padding: 20px 20px 24px; }
+    #modal-footer { padding: 14px 20px 24px; }
+
+    /* Facts grid drops to 1 column */
+    #modal-facts { grid-template-columns: 1fr; }
+
+    /* Hide keyboard hint on mobile (irrelevant on touch) */
+    #modal-hint { display: none; }
+
+    /* Footer right takes full width */
+    #modal-footer { justify-content: space-between; }
+    #modal-visit-btn { flex: 1; justify-content: center; }
+
+    /* Header title slightly smaller */
+    .site-title { font-size: clamp(36px, 10vw, 48px); }
+
+    /* Filter bar: show scroll shadow hint */
+    .filter-wrap::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 40px;
+      background: linear-gradient(to right, transparent, var(--bg));
+      pointer-events: none;
+    }
+    .filter-wrap { position: relative; }
+
+    .footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .footer-repo {
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <h1 class="site-title">Design &amp; AI<br><em>Discoveries</em></h1>
+  <p class="site-sub">A curated index of tools at the intersection of design and AI — what they are, what they're not, and how they fit your workflow.</p>
+  <div class="tool-stats">
+    <span class="stat-num" data-target="26">0</span> tools
+    <span class="stat-dot">·</span>
+    <span class="stat-num" data-target="11">0</span> categories
+    <span>· Updated March 2026</span>
+  </div>
+</header>
+
+<!-- FILTER BAR -->
+<div class="filter-wrap">
+  <div class="filter-inner">
+    <button class="filter-btn active" data-filter="all">All <span class="filter-count">26</span></button>
+    <div class="filter-divider"></div>
+    <button class="filter-btn" data-filter="Figma MCPs">Figma MCPs</button>
+    <button class="filter-btn" data-filter="Design-to-Code">Design-to-Code</button>
+    <button class="filter-btn" data-filter="Vibe-Code / Builders">Vibe-Code</button>
+    <button class="filter-btn" data-filter="AI Visual Generation">AI Visual</button>
+    <button class="filter-btn" data-filter="UI Components &amp; Systems">UI Systems</button>
+    <button class="filter-btn" data-filter="AI Design Skills">AI Design Skills</button>
+    <button class="filter-btn" data-filter="Research">Research</button>
+    <button class="filter-btn" data-filter="Web Publishing">Web Publishing</button>
+    <button class="filter-btn" data-filter="Presentations">Presentations</button>
+    <button class="filter-btn" data-filter="Marketing &amp; Brand">Brand</button>
+    <button class="filter-btn" data-filter="Color &amp; Tokens">Color &amp; Tokens</button>
+    <div class="filter-divider"></div>
+    <button class="filter-btn" data-view="articles">Articles <span class="filter-count">7</span></button>
+    <button class="filter-btn" data-view="posts">Posts <span class="filter-count">14</span></button>
+  </div>
+</div>
+
+<!-- MAIN GRID -->
+<main class="main">
+  <!-- Tools view -->
+  <div class="view-section active" id="view-tools">
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+
+  <!-- Articles view -->
+  <div class="view-section" id="view-articles">
+    <div class="articles-list" id="articlesList"></div>
+  </div>
+
+  <!-- Posts view -->
+  <div class="view-section" id="view-posts">
+    <div class="posts-grid" id="postsGrid"></div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-made-with">
+      <span class="footer-label">Made with</span>
+      <div class="footer-tools">
+        <a href="https://claude.ai" target="_blank" rel="noopener" class="footer-tool">
+          <img src="https://www.google.com/s2/favicons?domain=claude.ai&sz=32" alt="" class="footer-icon">
+          Claude
+        </a>
+        <span class="footer-dot">·</span>
+        <a href="https://notion.so" target="_blank" rel="noopener" class="footer-tool">
+          <img src="https://www.google.com/s2/favicons?domain=notion.so&sz=32" alt="" class="footer-icon">
+          Notion
+        </a>
+        <span class="footer-dot">·</span>
+        <a href="https://cursor.com" target="_blank" rel="noopener" class="footer-tool">
+          <img src="https://www.google.com/s2/favicons?domain=cursor.com&sz=32" alt="" class="footer-icon">
+          Cursor
+        </a>
+        <span class="footer-dot">·</span>
+        <span class="footer-tool footer-tool--struck" title="No Figma was harmed in the making of this site">
+          <img src="https://www.google.com/s2/favicons?domain=figma.com&sz=32" alt="" class="footer-icon">
+          <s>Figma</s>
+        </span>
+      </div>
+    </div>
+
+    <a href="https://github.com/richpeniche/design-ai" target="_blank" rel="noopener" class="footer-repo">
+      <img src="https://www.google.com/s2/favicons?domain=github.com&sz=32" alt="" class="footer-icon">
+      github.com/richpeniche/design-ai
+    </a>
+
+  </div>
+</footer>
+
+<div id="modal-backdrop" class="modal-hidden">
+  <div id="modal">
+    <div id="modal-image"><div id="modal-image-placeholder"></div></div>
+    <div id="modal-header">
+      <div id="modal-title-group">
+        <div id="modal-eyebrow"></div>
+        <div id="modal-title"></div>
+        <div id="modal-tags"></div>
+      </div>
+      <button id="modal-close">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="modal-body">
+      <p id="modal-description"></p>
+      <div id="modal-facts"></div>
+      <div id="modal-flow"></div>
+    </div>
+    <div id="modal-footer">
+      <div id="modal-hint">
+        <span class="kbd">Esc</span> to close
+        &nbsp;·&nbsp;
+        <span class="kbd">←</span><span class="kbd">→</span> to navigate
+      </div>
+      <div id="modal-footer-right">
+        <div id="modal-nav">
+          <button class="nav-btn" id="nav-prev">←</button>
+          <button class="nav-btn" id="nav-next">→</button>
+        </div>
+        <a id="modal-visit-btn" href="#" target="_blank" rel="noopener">Visit site ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="og-image-map">
+const OG_IMAGE_MAP = {
+  "https://help.figma.com/hc/en-us/articles/32132100833559": "https://help.figma.com/hc/theming_assets/01HZFG1N1QJPKABHT3PHQQ0J9J",
+  "https://figma-console-mcp.southleft.com/": "https://docs.figma-console-mcp.southleft.com/images/og-image.jpg",
+  "https://marketplace.visualstudio.com/items?itemName=figma.figma-vscode-extension": "https://figma.gallerycdn.vsassets.io/extensions/figma/figma-vscode-extension/0.4.4/1770306662091/Microsoft.VisualStudio.Services.Icons.Default",
+  "https://www.framelink.ai/": null,
+  "https://www.pencil.dev": "https://pencil.dev/og-image.png",
+  "https://openpencil.dev": "https://openpencil.dev/screenshot.png",
+  "https://paper.design": "https://paper.design/opengraph-image.jpg?opengraph-image.9a84ecdd.jpg",
+  "https://efecto.app": "https://efecto.app/og-image.jpg",
+  "https://rive.app": "https://framerusercontent.com/images/yEWMbP7UtsS81SlkoxTasfabvc.png",
+  "https://lovable.dev": "https://lovable.dev/img/opengraph-image.png",
+  "https://motion.dev": "https://framerusercontent.com/images/9IOwyTKAykVZTetDEOb7qh81ZQ.png",
+  "https://variant.com": null,
+  "https://wabi.ai/": "https://wabi.ai/opengraph-image.jpg",
+  "https://krea.ai": "https://s.krea.ai/KreaOpenGraph2.webp",
+  "https://app.reve.com": "https://app.reve.com/card.png",
+  "https://quiver.ai": "https://quiver.ai/og.png",
+  "https://ui.sh": "https://ui.sh/og-image.png",
+  "https://rams.ai": "https://rams.ai/og-rams-20260112.jpg",
+  "https://nyne.ai": "https://framerusercontent.com/assets/hh7SpcPsgZZZpfrbleAk6GhDrNA.png",
+  "https://impeccable.style": "https://impeccable.style/og-image.jpg",
+  "https://www.fonttrio.xyz": "https://www.fonttrio.xyz/opengraph-image?f9e6e75089f71bc5",
+  "https://tweakcn.com/": "https://tweakcn.com/og-image.v050725.png",
+  "https://designagentlab.com": "https://framerusercontent.com/images/5QokBuGyb7aLClFyb7p8AkfJTdM.jpg",
+  "https://faces.app": "https://faces.app/opengraph-image.png",
+  "https://pi.ai": null,
+  "https://sprig.com": "https://cdn.prod.website-files.com/651206cc884d0caef0f4c520/685096f345eee70c4e2a9361_sprig.png",
+  "https://lucenthq.com/": "https://lucenthq.com/og-image.png",
+  "https://developers.webflow.com/mcp/reference/overview": null,
+  "https://gamma.app": "https://static.gamma.app/images/gamma-banner-8d71c455.png",
+  "https://framer.com/ai": "https://framerusercontent.com/assets/kjjoDnPE4LrPrdUkyISjot97E4.jpg",
+  "https://labs.google.com/pomelli": null,
+  "https://www.namedesigntokens.guide": null,
+  "https://huemint.com": null,
+  "https://oklch.fyi/": "https://zaevelstnancdrwi.public.blob.vercel-storage.com/oklch-fyi-og.png",
+  "https://www.adora.so/": "https://cdn.sanity.io/images/kgwq2lfr/production/5153b4b7e09548d81af617133c4cf62a2d76073f-1800x945.png",
+  "https://designspec.lovable.app/": "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/c788b512-9c2b-4265-870d-3ab645bd6375?Expires=1772990331&amp;GoogleAccessId=go-api-on-aws%40gpt-engineer-390607.iam.gserviceaccount.com&amp;Signature=P9ATXp6KPZWsJ6VGuWVssrEGl9LgZHlXw13uj9OHaHPRDoYo2PzXFmA2h3SfyKQ1aFfq3xZzzmmRZeati6pr2XPhw8uw2CNCfUjMeoxazpv1%2B2rdDf6us3j%2BoSqfJ0wBQsVTsXaCLy%2F6xdoFhrOT4prEGs%2BYeJ91iSG2yVSZbaOHAiMpQlk6OwDhTmPDbV%2B3ciyriZLql9LpuP9yqx8UO6CP9v5Ci%2BRFkj1%2FzCsOaUAshX%2FKM0zInjFj9EGYrf%2BUhIbO1GoAKXNJHAvyE7L1O%2FcB4ofozlFRjC3eiVTF6sPlvJdIGP5821nMISzDy6LMj94qbZxp1BpPU7aA6%2BtCSw%3D%3D",
+  "https://www.magicpath.ai/": "https://magicpath.ai/og-image.png",
+  "https://www.subframe.com/": "https://www.subframe.com/images/open-graph-image.png"
+};
+</script>
+<script>
+const TOOLS = [
+  // ── Figma MCPs ──
+  {
+    name: "Figma Console MCP (Southleft)",
+    category: "Figma MCPs",
+    maturity: "Active Dev",
+    whatItIs: "A community MCP server that turns your Figma design system into a queryable API for AI tools and code generators.",
+    whatItIsNot: "Not a code generator itself — it's a data layer that feeds AI builders with design system context.",
+    speedAdvantage: "Lets AI tools pull real-time design tokens, component specs, and console logs — no manual extraction.",
+    whatsGreatFor: "Design system extraction, programmatic Figma control, plugin debugging via console log capture, feeding AI builders like v0, Lovable, Replit.",
+    flowInSteps: "1. Install Southleft Figma Plugin  2. Run MCP server locally via Node  3. Connect to Claude Code or Cursor  4. Query design tokens and components  5. Pipe into AI code generators",
+    website: "https://figma-console-mcp.southleft.com/"
+  },
+  {
+    name: "Figma MCP (Official)",
+    category: "Figma MCPs",
+    maturity: "Stable",
+    whatItIs: "Figma's official MCP server that connects AI coding tools directly to your Figma designs for code generation.",
+    whatItIsNot: "Not a design-system extractor, not a Figma plugin — it's a bridge between your designs and your IDE.",
+    speedAdvantage: "Eliminates the copy-paste loop between Figma and your IDE — AI reads the design directly and generates production code.",
+    whatsGreatFor: "Design-to-code generation, Code Connect integration, FigJam collaboration, enterprise design handoff.",
+    flowInSteps: "1. Open design in Figma  2. Connect MCP server to Claude Code or Cursor  3. Reference a frame by name  4. AI generates production-ready code  5. Iterate inside your IDE",
+    website: "https://help.figma.com/hc/en-us/articles/32132100833559"
+  },
+  {
+    name: "Figma MCP in VS Code",
+    category: "Figma MCPs",
+    maturity: "Beta",
+    whatItIs: "A GitHub + Figma integration that generates Figma design layers directly inside VS Code via the Figma MCP server.",
+    whatItIsNot: "Not a standalone tool — requires VS Code, Figma, and GitHub Copilot working together.",
+    speedAdvantage: "Generate design layers without leaving your code editor — the design canvas comes to you.",
+    whatsGreatFor: "Dev-first teams who want to generate or update Figma designs from code, without switching apps.",
+    flowInSteps: "1. Open VS Code with Figma + Copilot extensions  2. Connect your Figma file  3. Prompt Copilot to generate design layers  4. Review in Figma panel  5. Iterate from editor",
+    website: "https://marketplace.visualstudio.com/items?itemName=figma.figma-vscode-extension"
+  },
+  {
+    name: "Framelink MCP for Figma",
+    category: "Figma MCPs",
+    maturity: "Stable",
+    whatItIs: "An open-source, free MCP server that connects AI coding agents like Cursor directly to your Figma files — compressing Figma API data by ~90% so agents get only the most relevant layout and styling context.",
+    whatItIsNot: "Not made by Figma — no Code Connect, no official design handoff features. Works with any Figma account, no Dev seat required.",
+    speedAdvantage: "Cuts the design-to-code loop to a single paste: drop a Figma frame link into Cursor, the agent fetches the design data and generates production-ready code in one shot.",
+    whatsGreatFor: "One-shot design implementation in Cursor, teams who want Figma-to-code without a Figma Dev seat, open-source alternative to the official Figma MCP.",
+    flowInSteps: "1. Generate a Figma personal access token  2. Add Framelink MCP to your IDE config (npx figma-developer-mcp)  3. Copy a Figma frame link  4. Paste into Cursor agent with a prompt  5. Agent fetches design data and generates code",
+    website: "https://www.framelink.ai/"
+  },
+
+  // ── Design-to-Code ──
+  {
+    name: "Efecto",
+    category: "Design-to-Code",
+    maturity: "Beta",
+    whatItIs: "A canvas-based editor where you design with real React + Tailwind components — the canvas IS the code.",
+    whatItIsNot: "Not a mockup tool — every element on canvas is live React code, not a visual proxy.",
+    speedAdvantage: "Zero translation layer between design and code — what you see is production-ready.",
+    whatsGreatFor: "Rapid React UI building, component-driven design, teams who want to skip the design → dev handoff entirely.",
+    flowInSteps: "1. Open Efecto canvas  2. Drag or prompt components  3. AI generates Tailwind React code live  4. Edit visually or in code panel  5. Export component",
+    website: "https://efecto.app"
+  },
+  {
+    name: "OpenPencil",
+    category: "Design-to-Code",
+    maturity: "Early / Experimental",
+    whatItIs: "An open-source Figma alternative with AI-native design-to-code built in and .fig file compatibility.",
+    whatItIsNot: "Not production-ready — early experimental project exploring AI-first design tooling.",
+    speedAdvantage: "Removes Figma vendor lock-in while keeping AI-driven layout generation.",
+    whatsGreatFor: "Teams wanting control over their design tooling; AI-driven layout generation; .fig file compatibility without Figma's vendor lock.",
+    flowInSteps: "1. Import .fig file or start fresh  2. Design in open canvas  3. Use AI layout commands  4. Export to code  5. Iterate",
+    website: "https://openpencil.dev"
+  },
+  {
+    name: "Paper",
+    category: "Design-to-Code",
+    maturity: "Beta",
+    whatItIs: "An AI-native design tool where design and code are inseparable — built for agent-assisted workflows.",
+    whatItIsNot: "Not a Figma clone or traditional design tool — purpose-built for AI-first workflows.",
+    speedAdvantage: "Design and code stay in sync by default — no handoff step.",
+    whatsGreatFor: "Agent-assisted UI creation, rapid iteration, teams where designers and developers overlap.",
+    flowInSteps: "1. Open Paper workspace  2. Prompt AI to generate layout  3. Edit visually or via prompts  4. Code syncs automatically  5. Export or deploy",
+    website: "https://paper.design"
+  },
+  {
+    name: "Pencil",
+    category: "Design-to-Code",
+    maturity: "Beta",
+    whatItIs: "A sketch-to-code tool — draw UI wireframes by hand and get production code output.",
+    whatItIsNot: "Not a design system builder or Figma replacement — it's a rapid ideation-to-code shortcut.",
+    speedAdvantage: "Removes the design fidelity bottleneck entirely — sketch it, get code.",
+    whatsGreatFor: "Rapid prototyping, early-stage product exploration, converting hand sketches to working interfaces.",
+    flowInSteps: "1. Sketch UI on paper or tablet  2. Upload photo or use drawing tool  3. AI interprets layout  4. Get React/HTML code output  5. Paste into project",
+    website: "https://www.pencil.dev"
+  },
+  {
+    name: "Rive",
+    category: "Design-to-Code",
+    maturity: "Stable",
+    whatItIs: "An interactive animation platform — design and ship real-time animations and state machines that run natively in apps.",
+    whatItIsNot: "Not a static animation exporter — Rive files run as live state machines, not video or GIF.",
+    speedAdvantage: "Animations ship as tiny runtime files with full state logic — no custom animation code needed.",
+    whatsGreatFor: "Interactive UI animations, loading states, onboarding flows, game-quality micro-interactions in production apps.",
+    flowInSteps: "1. Design animation in Rive editor  2. Define state machine triggers  3. Export .riv file  4. Integrate Rive runtime in app  5. Control via code or events",
+    website: "https://rive.app"
+  },
+  {
+    name: "Subframe",
+    category: "Design-to-Code",
+    maturity: "Stable",
+    whatItIs: "An AI-native design tool where every component maps directly to production-ready React + Tailwind code. Designers build visually using the same components that ship in production; engineers pull clean code via CLI. Integrates with Cursor and Claude Code via MCP and Skills.",
+    whatItIsNot: "Not a vibe-coding tool — it doesn't deploy apps or generate business logic. Not a Figma replacement for illustration or free-form design. Code output is deterministic, not AI-generated.",
+    speedAdvantage: "Eliminates the design-to-dev handoff entirely — what's designed is what ships, with zero translation layer.",
+    whatsGreatFor: "Design-engineering teams closing the gap between mockups and production UI. Strong fit for design systems where consistency between design and code is non-negotiable.",
+    flowInSteps: "1. Build components visually in Subframe → 2. Use AI to generate variations or full pages → 3. Run npx @subframe/cli sync → 4. Components appear in your codebase → 5. Add business logic in Cursor or Claude Code",
+    website: "https://www.subframe.com/"
+  },
+
+  // ── Vibe-Code / Builders ──
+  {
+    name: "Lovable",
+    category: "Vibe-Code / Builders",
+    maturity: "Beta",
+    whatItIs: "A full-stack AI app builder — describe what you want to build, get a working app with frontend, backend, and database.",
+    whatItIsNot: "Not a design tool or prototyping tool — it builds real, deployable apps from natural language.",
+    speedAdvantage: "Goes from idea to deployed app in minutes — frontend, backend, auth, and DB all handled.",
+    whatsGreatFor: "MVPs, internal tools, startup prototypes, and any situation where you need something real and functional, fast.",
+    flowInSteps: "1. Describe your app in plain language  2. Lovable generates full-stack code  3. Preview live app  4. Iterate via prompts  5. Deploy with one click",
+    website: "https://lovable.dev"
+  },
+  {
+    name: "Magicpath",
+    category: "Vibe-Code / Builders",
+    maturity: "Beta",
+    whatItIs: "An AI-native design tool on an infinite canvas — describe screens in plain language and MagicPath generates high-fidelity UI with interactive web preview. Closer to Figma AI than a vibe-coding tool: it stays in the design/prototype layer.",
+    whatItIsNot: "Not a full vibe-coding platform that deploys production apps — it stops at the prototype. Not a replacement for Figma for complex design systems, component libraries, or developer handoff.",
+    speedAdvantage: "From idea to clickable multi-screen prototype in one session, without artboard setup or manual component work.",
+    whatsGreatFor: "Early-stage concepting, exploring layout directions fast, and client demos where you need something interactive before any code exists. Accessible to non-designers.",
+    flowInSteps: "1. Describe a screen in plain language → 2. MagicPath generates UI on the infinite canvas → 3. Generate variants to explore directions → 4. Link screens into a flow → 5. Share via Web Preview for team or stakeholder review",
+    website: "https://www.magicpath.ai/"
+  },
+  {
+    name: "Motion",
+    category: "Vibe-Code / Builders",
+    maturity: "Stable",
+    whatItIs: "A production-grade React animation library — the industry standard for UI motion on the web.",
+    whatItIsNot: "Not a visual animation tool — it's a code library that requires writing or generating code.",
+    speedAdvantage: "AI can generate polished Motion animations from a description — no manual keyframe work.",
+    whatsGreatFor: "Page transitions, scroll animations, gesture-driven UI, entrance/exit effects, layout animations.",
+    flowInSteps: "1. Install Motion via npm  2. Wrap elements with motion.div  3. Add animation props  4. Define variants  5. Trigger via state or scroll",
+    website: "https://motion.dev"
+  },
+  {
+    name: "Variant UI",
+    category: "Vibe-Code / Builders",
+    maturity: "Beta",
+    whatItIs: "An AI component generator that outputs variant-aware UI components ready for design systems.",
+    whatItIsNot: "Not a full app builder — focused on generating individual components with proper variant logic.",
+    speedAdvantage: "Generates component variants with proper prop API and Tailwind styles in one shot.",
+    whatsGreatFor: "Design system teams, component library builders, rapid UI scaffolding.",
+    flowInSteps: "1. Describe component and variants  2. AI generates component code  3. Review variant props  4. Drop into your design system  5. Iterate with prompts",
+    website: "https://variant.com"
+  },
+  {
+    name: "Wabi",
+    category: "Vibe-Code / Builders",
+    maturity: "Early / Experimental",
+    whatItIs: "A personal software platform — create, discover, and remix mini-apps in minutes directly on iOS.",
+    whatItIsNot: "Not an enterprise tool — designed for personal use and individual workflows, not team product development.",
+    speedAdvantage: "Build a personal tool for your exact workflow in the time it takes to describe it — no dev environment, no setup.",
+    whatsGreatFor: "Personal productivity apps, niche tools, creative experiments; anything you'd normally wish existed but wouldn't justify a full build.",
+    flowInSteps: "1. Open Wabi on iOS  2. Describe the mini-app you want  3. App is generated and ready to use  4. Remix or share with others  5. Discover apps built by the community",
+    website: "https://wabi.ai/"
+  },
+
+  // ── AI Visual Generation ──
+  {
+    name: "Krea",
+    category: "AI Visual Generation",
+    maturity: "Beta",
+    whatItIs: "A real-time AI image generation workspace for visual exploration and brand direction.",
+    whatItIsNot: "Not a production design tool — it's a creative exploration and direction-finding tool.",
+    speedAdvantage: "Real-time generation means instant visual feedback as you adjust prompts.",
+    whatsGreatFor: "Visual exploration, brand direction, concept art, product imagery, video content, custom-trained visual styles.",
+    flowInSteps: "1. Open Krea canvas  2. Start with prompt or reference image  3. Adjust in real time  4. Upscale chosen outputs  5. Export for production use",
+    website: "https://krea.ai"
+  },
+  {
+    name: "Quiver",
+    category: "AI Visual Generation",
+    maturity: "Beta",
+    whatItIs: "An AI vector illustration tool — generates logos, icons, and brand illustrations as editable SVGs.",
+    whatItIsNot: "Not a raster image generator — output is clean vector, not bitmap.",
+    speedAdvantage: "Goes from brand brief to editable SVG assets in seconds — no Illustrator session needed.",
+    whatsGreatFor: "Logo generation, icon sets, brand illustrations, vectorizing existing concepts.",
+    flowInSteps: "1. Describe desired visual  2. AI generates SVG  3. Preview and iterate  4. Edit in Quiver or export to Illustrator  5. Ship to design system",
+    website: "https://quiver.ai"
+  },
+  {
+    name: "Reve",
+    category: "AI Visual Generation",
+    maturity: "Beta",
+    whatItIs: "An AI image generation tool focused on high-quality, controllable visual output for creative teams.",
+    whatItIsNot: "Not a design-to-code tool — purely for image and visual asset generation.",
+    speedAdvantage: "Fine-grained controls for composition and style give more predictable outputs than general image tools.",
+    whatsGreatFor: "Product visuals, marketing assets, concept direction, controlled brand-aligned imagery.",
+    flowInSteps: "1. Input prompt or reference  2. Adjust style and composition controls  3. Generate variations  4. Upscale and refine  5. Export assets",
+    website: "https://app.reve.com"
+  },
+
+  // ── UI Components & Systems ──
+  {
+    name: "DesignSpec",
+    category: "UI Components & Systems",
+    maturity: "Beta",
+    whatItIs: "A living encyclopedia for design standards — search any UI component to explore documentation, UX principles, accessibility guidelines, and real-world implementation patterns. Built on Lovable.",
+    whatItIsNot: "Not a design tool or component builder — it documents and teaches standards, it doesn't generate UI. Not a substitute for a project-specific design system.",
+    speedAdvantage: "Instant lookup for component behavior, accessibility rules, and UX rationale — no need to dig through Material, HIG, or WCAG docs separately.",
+    whatsGreatFor: "Designers and developers who need a quick, authoritative reference for how a component should behave, what accessibility it requires, and how others have implemented it.",
+    flowInSteps: "1. Search a component (e.g. 'modal', 'date picker') → 2. Review UX principles and behavior specs → 3. Check accessibility guidelines → 4. Reference real-world implementation patterns → 5. Apply standards to your own design or code",
+    website: "https://designspec.lovable.app/"
+  },
+  {
+    name: "Fonttrio",
+    category: "UI Components & Systems",
+    maturity: "Active Dev",
+    whatItIs: "A font theme finder for shadcn — instantly find harmonious typeface combinations that work with your shadcn component setup.",
+    whatItIsNot: "Not a full type system tool — focused specifically on the shadcn ecosystem, not general typography or design systems.",
+    speedAdvantage: "Removes the trial-and-error of font pairing from shadcn projects — go from default Inter to a considered type system in minutes.",
+    whatsGreatFor: "Developers building with shadcn/ui who want their app to feel designed, not default.",
+    flowInSteps: "1. Open Fonttrio  2. Browse font theme combinations  3. Preview in shadcn context  4. Copy the font config  5. Drop into your project",
+    website: "https://www.fonttrio.xyz"
+  },
+  {
+    name: "Impeccable",
+    category: "UI Components & Systems",
+    maturity: "Beta",
+    whatItIs: "A design QA and consistency tool that audits UI code against design system specs automatically.",
+    whatItIsNot: "Not a design tool or code generator — it's a quality gate for design system adherence.",
+    speedAdvantage: "Automated design QA catches inconsistencies before they ship.",
+    whatsGreatFor: "Design system governance, QA automation, catching off-spec components in production.",
+    flowInSteps: "1. Connect to codebase  2. Define design system rules  3. Run audit  4. Review flagged issues  5. Fix and re-audit",
+    website: "https://impeccable.style"
+  },
+  {
+    name: "Nyne.ai",
+    category: "UI Components & Systems",
+    maturity: "Beta",
+    whatItIs: "A data access layer for AI agents operating in enterprise design and product contexts.",
+    whatItIsNot: "Not a design tool — it's infrastructure for AI agents to access enterprise data securely.",
+    speedAdvantage: "AI agents get structured access to enterprise data without custom integrations.",
+    whatsGreatFor: "Enterprise AI workflows, connecting AI agents to internal design and product data.",
+    flowInSteps: "1. Configure Nyne data sources  2. Connect to AI agent  3. Define access permissions  4. Agent queries data  5. Use output in workflow",
+    website: "https://nyne.ai"
+  },
+  {
+    name: "Rams.ai",
+    category: "UI Components & Systems",
+    maturity: "Beta",
+    whatItIs: "An AI design reviewer that gives real-time feedback on accessibility, spacing, and visual hierarchy as you code.",
+    whatItIsNot: "Not a code generator — it reviews and critiques, doesn't generate.",
+    speedAdvantage: "Catches design issues at the code level before they hit QA or users.",
+    whatsGreatFor: "Maintaining design quality in AI-generated code, accessibility review, spacing and type hierarchy checks.",
+    flowInSteps: "1. Connect Rams.ai to your editor  2. Write or generate UI code  3. Real-time feedback appears  4. Fix issues in context  5. Ship cleaner UI",
+    website: "https://rams.ai"
+  },
+  {
+    name: "Rive",
+    category: "UI Components & Systems",
+    maturity: "Stable",
+    whatItIs: "A real-time animation runtime that ships interactive animations as compact, stateful components.",
+    whatItIsNot: "Not a static asset format — Rive runs as a live state machine embedded in your app.",
+    speedAdvantage: "Ships animation logic as code, not video — tiny files, full interactivity.",
+    whatsGreatFor: "Animated UI components, interactive onboarding, game-quality motion in production.",
+    flowInSteps: "1. Build in Rive editor  2. Define states and triggers  3. Export .riv  4. Embed runtime  5. Control via app events",
+    website: "https://rive.app"
+  },
+  {
+    name: "tweakcn",
+    category: "UI Components & Systems",
+    maturity: "Beta",
+    whatItIs: "A visual, no-code theme editor for shadcn/ui and Tailwind CSS — adjust colors, typography, border radius, and shadows with real-time preview, then export clean CSS variables directly into your project.",
+    whatItIsNot: "Not a component library and not a full design system tool — it themes existing shadcn/ui components, it doesn't replace them or generate new ones.",
+    speedAdvantage: "Turns shadcn/ui theming from manual CSS variable hunting into a visual, real-time process — export-ready code in minutes instead of hours.",
+    whatsGreatFor: "Differentiating shadcn/ui projects visually, rapid brand theming, Tailwind v3 and v4 support, OKLCH and HSL color workflows, teams who want design-system-level consistency without a designer.",
+    flowInSteps: "1. Open tweakcn editor  2. Select a preset theme or start from scratch  3. Adjust colors, typography, radius, and shadows visually  4. Preview changes live across shadcn/ui components  5. Copy generated CSS variables into your project",
+    website: "https://tweakcn.com/"
+  },
+  {
+    name: "UI.SH",
+    category: "UI Components & Systems",
+    maturity: "Stable",
+    whatItIs: "A design system rules layer that tells AI tools how to generate UI that matches your brand and component library.",
+    whatItIsNot: "Not a component library itself — it's the rules and constraints that govern AI-generated UI.",
+    speedAdvantage: "AI references your design rules during generation — output is on-brand by default.",
+    whatsGreatFor: "Teams with established design systems who want AI-generated UI to match their standards.",
+    flowInSteps: "1. Define design rules in UI.SH  2. Agent references rules during generation  3. Generated UI applies spacing, typography, tokens  4. Review output  5. Ship with confidence",
+    website: "https://ui.sh"
+  },
+
+  // ── AI Design Skills ──
+  {
+    name: "Design Agent Lab — Claude Skills",
+    category: "AI Design Skills",
+    maturity: "Active Dev",
+    whatItIs: "A practical lab for exploring Claude agent workflows in design contexts — built and maintained by the community.",
+    whatItIsNot: "Not a polished product — an experimental space for testing AI design agents.",
+    speedAdvantage: "Pre-built Claude skill templates reduce the setup time for common design agent workflows.",
+    whatsGreatFor: "Design teams getting started with Claude Code agents; connecting Claude to Figma; running AI-assisted design reviews.",
+    flowInSteps: "1. Browse skill templates  2. Copy relevant skill to Claude Code  3. Configure for your design context  4. Run agent workflow  5. Iterate and customize",
+    website: "https://designagentlab.com"
+  },
+  {
+    name: "Pi",
+    category: "AI Design Skills",
+    maturity: "Stable",
+    whatItIs: "A conversational AI assistant built for thinking through problems — useful as a design thinking partner.",
+    whatItIsNot: "Not a design or code tool — purely conversational, for ideation and reasoning.",
+    speedAdvantage: "Surfaces alternative framings and blind spots faster than solo thinking.",
+    whatsGreatFor: "Design problem framing, decision-making support, stakeholder communication prep.",
+    flowInSteps: "1. Frame design challenge in Pi  2. Explore via conversation  3. Probe alternatives  4. Extract key insights  5. Bring clarity back to design process",
+    website: "https://pi.ai"
+  },
+
+  // ── Research & Analytics ──
+  {
+    name: "Adora",
+    category: "Research",
+    maturity: "Beta",
+    whatItIs: "An AI-powered product analytics platform that auto-maps every screen and user journey in your live product — no manual event tagging required. AI agents monitor 24/7 and surface friction, drop-offs, and insights linked directly to the affected screens.",
+    whatItIsNot: "Not a design or prototyping tool. Not a replacement for granular event tracking platforms like Mixpanel — it operates at the journey and screen level, not the raw event level.",
+    speedAdvantage: "Install one JS snippet and your entire product is mapped — no taxonomy setup, no tagging sprints, no waiting.",
+    whatsGreatFor: "Product teams that need a living, auto-updating map of their full experience across languages, devices, and A/B variants. Especially useful for catching UX regressions after fast-moving releases.",
+    flowInSteps: "1. Install JS snippet → 2. Adora auto-maps all screens and journeys → 3. Ask Adora questions in natural language → 4. Drill into session replays for problem screens → 5. Share journey maps with the team",
+    website: "https://www.adora.so/"
+  },
+  {
+    name: "Lucent",
+    category: "Research",
+    maturity: "Early / Experimental",
+    whatItIs: "An AI-powered session replay analyzer that automatically detects bugs, UX issues, and friction points as users encounter them — without manual review.",
+    whatItIsNot: "Not a traditional analytics tool or heatmap tool — it watches replays autonomously and surfaces issues, rather than waiting for you to query the data.",
+    speedAdvantage: "Eliminates the need to manually scrub session recordings — AI flags issues in real time as users hit them.",
+    whatsGreatFor: "Continuous UX monitoring, bug detection from real user sessions, friction point analysis, teams using PostHog or Slack who want automatic issue surfacing.",
+    flowInSteps: "1. Connect Lucent to your session replay tool  2. Users interact with your product  3. Lucent watches replays automatically  4. AI surfaces detected bugs and UX issues  5. Review flagged items and prioritize fixes",
+    website: "https://lucenthq.com/"
+  },
+  {
+    name: "Sprig",
+    category: "Research",
+    maturity: "Stable",
+    whatItIs: "An in-product research platform that lets you capture user feedback and run micro-surveys at the moment of interaction.",
+    whatItIsNot: "Not a traditional usability testing tool — it's continuous, in-context discovery at scale.",
+    speedAdvantage: "AI synthesizes survey responses across thousands of users into actionable insight summaries.",
+    whatsGreatFor: "Continuous Research, feature validation, NPS in context, understanding drop-off at specific flows.",
+    flowInSteps: "1. Define research question  2. Set trigger condition in product  3. Survey fires at interaction moment  4. AI synthesizes responses  5. Share insights with team",
+    website: "https://sprig.com"
+  },
+
+  // ── Web Publishing ──
+  {
+    name: "Webflow MCP",
+    category: "Web Publishing",
+    maturity: "Beta",
+    whatItIs: "An MCP server that lets AI agents control and publish Webflow sites programmatically.",
+    whatItIsNot: "Not a Webflow replacement — it's an AI control layer on top of existing Webflow projects.",
+    speedAdvantage: "AI can update, populate, and publish Webflow content without you touching the editor.",
+    whatsGreatFor: "Automating content updates, site migrations, AI-driven site generation with Webflow as the CMS.",
+    flowInSteps: "1. Connect Webflow MCP to Claude Code  2. Point at your Webflow project  3. Prompt AI to update content or structure  4. Preview changes  5. Publish",
+    website: "https://developers.webflow.com/mcp/reference/overview"
+  },
+
+  // ── Presentations ──
+  {
+    name: "Faces",
+    category: "Presentations",
+    maturity: "Beta",
+    whatItIs: "A UI for exploring AI face and portrait generation for product design use cases.",
+    whatItIsNot: "Not for building apps — it's a reference and generation tool for diverse, realistic personas.",
+    speedAdvantage: "Generates diverse, realistic user portraits for personas and mockups instantly.",
+    whatsGreatFor: "User persona creation, mockup population, diversity-representative design research visuals.",
+    flowInSteps: "1. Define persona attributes  2. Generate portrait options  3. Select and download  4. Use in persona docs or mockups  5. Iterate as needed",
+    website: "https://faces.app"
+  },
+  {
+    name: "Gamma",
+    category: "Presentations",
+    maturity: "Stable",
+    whatItIs: "An AI presentation builder that generates polished, structured decks from an outline or prompt.",
+    whatItIsNot: "Not a PowerPoint replacement for custom-branded decks — better for speed over pixel-perfect control.",
+    speedAdvantage: "Goes from bullet points to a full designed presentation in under two minutes.",
+    whatsGreatFor: "Internal presentations, stakeholder briefs, discovery readouts, quick-turn investor decks.",
+    flowInSteps: "1. Input topic or outline  2. Gamma generates deck  3. Choose visual theme  4. Edit cards  5. Share link or export",
+    website: "https://gamma.app"
+  },
+
+  // ── Marketing & Brand ──
+  {
+    name: "Framer AI",
+    category: "Marketing & Brand",
+    maturity: "Stable",
+    whatItIs: "AI-powered website builder inside Framer — generate and iterate marketing sites from prompts.",
+    whatItIsNot: "Not a full app builder — focused on marketing and portfolio sites, not complex web apps.",
+    speedAdvantage: "Marketing site from prompt to live URL in minutes — no developer needed.",
+    whatsGreatFor: "Product landing pages, portfolio sites, campaign microsites, startup marketing sites.",
+    flowInSteps: "1. Describe site in Framer  2. AI generates initial layout  3. Edit in Framer visual editor  4. Connect custom domain  5. Publish",
+    website: "https://framer.com/ai"
+  },
+  {
+    name: "Pomelli",
+    category: "Marketing & Brand",
+    maturity: "Beta",
+    whatItIs: "Google Labs AI marketing tool that scans your website, builds a 'Business DNA' brand profile, and generates on-brand social campaigns and product imagery.",
+    whatItIsNot: "Not a design system tool and not a social media scheduler — generates assets for manual download and upload, no direct publishing integration.",
+    speedAdvantage: "Brand onboarding is automatic — paste your URL and the AI extracts your colors, fonts, tone, and style without manual briefing.",
+    whatsGreatFor: "SMBs and product teams needing fast, brand-consistent marketing visuals; product photo enhancement; generating first-draft campaign assets at scale.",
+    flowInSteps: "1. Enter your website URL  2. Pomelli builds a Business DNA brand profile  3. Describe a campaign or let AI suggest  4. Review generated assets  5. Edit and download",
+    website: "https://labs.google.com/pomelli"
+  },
+
+  // ── Color & Tokens ──
+  {
+    name: "Design Token Naming Guide",
+    category: "Color & Tokens",
+    maturity: "Stable",
+    whatItIs: "A community reference guide for consistent, scalable design token naming conventions.",
+    whatItIsNot: "Not a tool — a specification document for teams establishing or refactoring their token system.",
+    speedAdvantage: "Establishes naming clarity upfront, preventing expensive refactors later.",
+    whatsGreatFor: "Teams building or auditing design token systems, multi-brand systems, Figma + code token alignment.",
+    flowInSteps: "1. Review naming conventions  2. Audit existing tokens  3. Map to recommended structure  4. Agree on chosen convention  5. Apply consistently across design and code",
+    website: "https://www.namedesigntokens.guide"
+  },
+  {
+    name: "Huemint",
+    category: "Color & Tokens",
+    maturity: "Stable",
+    whatItIs: "An AI color palette generator trained on design aesthetics — generates harmonious brand palettes.",
+    whatItIsNot: "Not a full design system tool — focused purely on color exploration and palette generation.",
+    speedAdvantage: "Generates aesthetically coherent palettes in seconds instead of hours of manual iteration.",
+    whatsGreatFor: "Brand color exploration, palette generation for new products, finding secondary and accent pairings.",
+    flowInSteps: "1. Set layout type (website, logo, illustration)  2. Lock any existing brand colors  3. Generate palettes  4. Iterate with regenerate  5. Export hex values",
+    website: "https://huemint.com"
+  },
+  {
+    name: "oklch.fyi",
+    category: "Color & Tokens",
+    maturity: "Stable",
+    whatItIs: "An OKLCH color picker, generator, and converter — tools for creating perceptually uniform color palettes that match how humans actually see color.",
+    whatItIsNot: "Not a full design system tool — a focused utility for color work, not component or token management.",
+    speedAdvantage: "Color palettes that hold up across light/dark modes and Display-P3 are dramatically easier to build with OKLCH — this tool makes that approachable.",
+    whatsGreatFor: "Building color systems that hold up across Display-P3 and sRGB, generating accessible palettes, understanding and adopting modern CSS color models.",
+    flowInSteps: "1. Open oklch.fyi  2. Pick or convert a color  3. Build a perceptually uniform palette  4. Export OKLCH values as CSS  5. Use in design tokens or directly in Tailwind v4",
+    website: "https://oklch.fyi/"
+  }
+];
+
+// ── RENDERING ──
+function getMaturityClass(maturity) {
+  if (!maturity) return '';
+  const m = maturity.toLowerCase();
+  if (m.includes('stable')) return 'tag-stable';
+  if (m.includes('beta')) return 'tag-beta';
+  if (m.includes('active')) return 'tag-active';
+  return 'tag-experimental';
+}
+
+function parseSteps(stepsStr) {
+  if (!stepsStr) return [];
+  return stepsStr.split(/\d+\.\s+/).filter(Boolean).map(s => s.trim());
+}
+
+function renderCard(tool, idx) {
+  const steps = parseSteps(tool.flowInSteps);
+  const maturityClass = getMaturityClass(tool.maturity);
+  const hasWebsite = tool.website && tool.website !== 'N/A';
+
+  return `
+  <div class="card" data-category="${tool.category}" data-maturity="${tool.maturity || ''}" data-idx="${idx}" onclick="toggleCard(this, event)">
+    ${hasWebsite ? `<div class="card-image" data-url="${tool.website}">
+    <div class="card-image-placeholder"></div>
+  </div>` : ''}
+    <div class="card-top">
+      <div class="card-name">${tool.name}</div>
+      <a class="card-arrow" href="${hasWebsite ? tool.website : '#'}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Visit ${tool.name}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 17L17 7M17 7H7M17 7v10"/>
+        </svg>
+      </a>
+    </div>
+    <p class="card-what">${tool.whatItIs}</p>
+    <div class="card-meta">
+      <span class="card-category">${tool.category}</span>
+      ${tool.maturity ? `<span class="maturity-tag ${maturityClass}">${tool.maturity}</span>` : ''}
+    </div>
+  </div>`;
+}
+
+function renderAll() {
+  const grid = document.getElementById('toolGrid');
+  grid.innerHTML = TOOLS.map((t, i) => renderCard(t, i)).join('');
+}
+
+// ── TOGGLE EXPAND ──
+function toggleCard(card, event) {
+  // Don't expand if clicking the arrow link
+  if (event.target.closest('.card-arrow') || event.target.closest('.card-website-btn')) return;
+  const idx = parseInt(card.dataset.idx, 10);
+  openModal(TOOLS[idx]);
+}
+
+// ── FILTERING ──
+let activeCategory = 'all';
+let activeMaturity = null;
+
+function applyFilters() {
+  const cards = document.querySelectorAll('.card');
+  let visible = 0;
+  cards.forEach(card => {
+    const cat = card.dataset.category;
+    const mat = card.dataset.maturity;
+    const catMatch = activeCategory === 'all' || cat === activeCategory;
+    const matMatch = !activeMaturity || mat === activeMaturity;
+    if (catMatch && matMatch) {
+      card.classList.remove('hidden');
+      visible++;
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+  // Update "All" count
+  document.querySelector('[data-filter="all"] .filter-count').textContent = visible;
+}
+
+document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Switch to tools view if needed
+    if (activeView !== 'tools') {
+      document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+      document.getElementById('view-tools').classList.add('active');
+      activeView = 'tools';
+    }
+    document.querySelectorAll('.filter-btn[data-filter]').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.filter-btn[data-view]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCategory = btn.dataset.filter;
+    applyFilters();
+  });
+});
+
+let currentToolIndex = null;
+let visibleTools = [];
+
+// ── INIT ──
+renderAll();
+setupCardImageObserver();
+
+// ── ARTICLES DATA ──
+const ARTICLES = [
+  {
+    headline: "The Future of Product Design",
+    description: "A forward-looking piece on how AI reshapes the product design role — from executor to decision-maker. Less pushing pixels, more directing systems.",
+    author: "Verified Insider / Substack",
+    date: "",
+    url: "https://verifiedinsider.substack.com/p/the-future-of-product-design"
+  },
+  {
+    headline: "Claude Code for Designers: A Practical Guide",
+    description: "A hands-on walkthrough for designers entering the Claude Code world — what it is, how to start, and where the leverage actually is.",
+    author: "Nervegna / Substack",
+    date: "",
+    url: "https://nervegna.substack.com/p/claude-code-for-designers-a-practical"
+  },
+  {
+    headline: "How I Got Codex Building Components Directly in Figma",
+    description: "A practical experiment connecting OpenAI Codex to Figma — generates components directly in the design tool from natural language.",
+    author: "Jack Anglesea / Medium",
+    date: "",
+    url: "https://medium.com/@jackanglesea/how-i-got-codex-building-components-directly-in-figma-d7bd2d70e91e"
+  },
+  {
+    headline: "How Research Changes with AI",
+    description: "Explores how AI agents shift Research from periodic research to a continuous, automated signal — implications for how teams prioritize and validate.",
+    author: "Proof of Concept / Substack",
+    date: "",
+    url: "https://www.proofofconcept.pub/p/how-product-discovery-changes-with"
+  },
+  {
+    headline: "Building Structural Barriers",
+    description: "On building things that are genuinely hard to replicate — why structural advantages matter more than speed advantages in an AI-accelerated world.",
+    author: "Mark Hendrickson",
+    date: "",
+    url: "https://markmhendrickson.com/posts/building-structural-barriers/"
+  },
+  {
+    headline: "Details That Make Interfaces Feel Better",
+    description: "A quiet, precise piece on the micro-decisions that separate interfaces that feel considered from ones that feel assembled.",
+    author: "Jakub.kr",
+    date: "",
+    url: "https://jakub.kr/writing/details-that-make-interfaces-feel-better"
+  },
+  {
+    headline: "Designer Founders: Jonathan Arena",
+    description: "Profile of a designer who built and shipped a product — useful context for the new generation of designer-founders enabled by AI tools.",
+    author: "Designer Founders / Substack",
+    date: "",
+    url: "https://designerfounders.substack.com/p/jonathan-arena-new-generation"
+  },
+  {
+    headline: "Shades of Halftone",
+    description: "Deep-dive into halftone shader effects for the web — a beautifully crafted technical article on recreating halftone aesthetics with modern CSS and WebGL.",
+    author: "Maxime Heckel",
+    date: "",
+    url: "https://blog.maximeheckel.com/posts/shades-of-halftone/"
+  }
+];
+
+// ── POSTS DATA ──
+const POSTS = [
+  { headline: "Shaders", description: "X post exploring GPU shader effects for UI and creative coding.", author: "@pablostanley", source: "x", url: "https://x.com/pablostanley/status/2020205624513163716" },
+  { headline: "Visual Systems", description: "Demonstration of AI-assisted visual system generation — a compelling reference for what's possible.", author: "@ayushsoni_io", source: "x", url: "https://x.com/ayushsoni_io/status/2027668436533580212" },
+  { headline: "Workflow Trick", description: "Useful technique for project exploration flows. Relevant for multi-concept work.", author: "@tokifyi", source: "x", url: "https://x.com/tokifyi/status/2025741929997361371" },
+
+  { headline: "AI-Assisted Dev Workflow", description: "X post on AI-assisted development workflow.", author: "@thorstenball", source: "x", url: "https://x.com/thorstenball/status/2022310010391302259" },
+  { headline: "Design + AI Tooling", description: "X post on design + AI tooling perspective.", author: "@alexkehr", source: "x", url: "https://x.com/alexkehr/status/2021667248608584183" },
+  { headline: "@jimprosser", description: "X post reference.", author: "@jimprosser", source: "x", url: "https://x.com/jimprosser/status/2029699731539255640" },
+  { headline: "@Av1dlive", description: "X post reference.", author: "@Av1dlive", source: "x", url: "https://x.com/Av1dlive/status/2023086925817729306" },
+  { headline: "@atmoio", description: "X post reference.", author: "@atmoio", source: "x", url: "https://x.com/atmoio/status/2030289138126107074" },
+  { headline: "Lenny Rachitsky Podcast — Design + AI", description: "Episode on design + AI.", author: "Lenny Rachitsky", source: "other", url: "https://x.com/lennysan/status/2028120467568263652" },
+  { headline: "Figma MCP Ecosystem Comparison", description: "Post comparing the Figma MCP ecosystem tools.", author: "LinkedIn", source: "linkedin", url: "https://www.linkedin.com/feed/update/urn:li:activity:7433914017871474688" },
+  { headline: "Design + AI Tips", description: "Practical tips post on design and AI workflows.", author: "LinkedIn", source: "linkedin", url: "https://www.linkedin.com/feed/update/urn:li:activity:7436038056563863553/" },
+  { headline: "Design MCP Adoption Kit", description: "LinkedIn post with attached Design MCP Adoption Kit PDF.", author: "LinkedIn", source: "linkedin", url: "https://www.linkedin.com/feed/update/urn:li:activity:7433064793130827776/" },
+  { headline: "Making the Case for Design", description: "Post on making the case for design in product teams.", author: "LinkedIn", source: "linkedin", url: "https://www.linkedin.com/posts/activity-7411489666849472512-w-Qq/" }
+];
+
+function getSourceIcon(source) {
+  if (source === 'x') return `<img class="post-source-icon" src="https://www.google.com/s2/favicons?domain=x.com&sz=32" alt="X">`;
+  if (source === 'linkedin') return `<img class="post-source-icon" src="https://www.google.com/s2/favicons?domain=linkedin.com&sz=32" alt="LinkedIn">`;
+  return `<img class="post-source-icon" src="https://www.google.com/s2/favicons?domain=substack.com&sz=32" alt="">`;
+}
+
+function getSourceLabel(source) {
+  if (source === 'x') return 'X / Twitter';
+  if (source === 'linkedin') return 'LinkedIn';
+  return 'Reference';
+}
+
+function renderArticles() {
+  const list = document.getElementById('articlesList');
+  list.innerHTML = ARTICLES.map(a => `
+    <a class="article-row" href="${a.url}" target="_blank" rel="noopener">
+      <div class="article-og" data-url="${a.url}">
+        <div class="article-og-placeholder"></div>
+      </div>
+      <div class="article-row-inner">
+        <div class="article-content">
+          <div class="article-headline">${a.headline}</div>
+          <div class="article-description">${a.description}</div>
+          <div class="article-meta">
+            ${a.author ? `<span class="article-author">${a.author}</span>` : ''}
+            ${a.author && a.date ? `<span class="article-meta-dot">·</span>` : ''}
+            ${a.date ? `<span class="article-date">${a.date}</span>` : ''}
+          </div>
+        </div>
+        <div class="article-arrow">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7M17 7H7M17 7v10"/>
+          </svg>
+        </div>
+      </div>
+    </a>
+  `).join('');
+  setupArticleImageObserver();
+}
+
+function renderPosts() {
+  const grid = document.getElementById('postsGrid');
+  grid.innerHTML = POSTS.map(p => `
+    <a class="post-card" href="${p.url}" target="_blank" rel="noopener">
+      <div class="post-og" data-url="${p.url}" data-source="${p.source}">
+        <div class="post-og-placeholder"></div>
+      </div>
+      <div class="post-card-body">
+        <div class="post-source-badge">
+          ${getSourceIcon(p.source)}
+          ${getSourceLabel(p.source)}
+        </div>
+        <div class="post-headline">${p.headline}</div>
+        <div class="post-description">${p.description}</div>
+        <div class="post-author">${p.author}</div>
+      </div>
+    </a>
+  `).join('');
+  setupPostImageObserver();
+}
+
+function setupArticleImageObserver() {
+  const containers = document.querySelectorAll('.article-og[data-url]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const container = entry.target;
+      observer.unobserve(container);
+      fetchSecondaryOgImage(container, 'article-og-fallback');
+    });
+  }, { rootMargin: '100px', threshold: 0 });
+  containers.forEach(el => observer.observe(el));
+}
+
+function setupPostImageObserver() {
+  const containers = document.querySelectorAll('.post-og[data-url]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const container = entry.target;
+      observer.unobserve(container);
+      fetchSecondaryOgImage(container, 'post-og-fallback');
+    });
+  }, { rootMargin: '100px', threshold: 0 });
+  containers.forEach(el => observer.observe(el));
+}
+
+// ── OG IMAGE CACHE (localStorage-backed, 30-day TTL) ──
+const OG_CACHE_KEY = 'design_ai_og_cache';
+const OG_CACHE_TTL = 30 * 24 * 60 * 60 * 1000;
+
+function _loadPersistedCache() {
+  try {
+    const raw = localStorage.getItem(OG_CACHE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    const now = Date.now();
+    let dirty = false;
+    for (const key in parsed) {
+      if (now - parsed[key].ts > OG_CACHE_TTL) { delete parsed[key]; dirty = true; }
+    }
+    if (dirty) localStorage.setItem(OG_CACHE_KEY, JSON.stringify(parsed));
+    return parsed;
+  } catch { return {}; }
+}
+
+function _persistOgEntry(url, imgUrl) {
+  try {
+    const cache = _loadPersistedCache();
+    cache[url] = { url: imgUrl, ts: Date.now() };
+    localStorage.setItem(OG_CACHE_KEY, JSON.stringify(cache));
+  } catch {}
+}
+
+// Domains that actively block OG scraping — skip fetch, show fallback immediately
+const OG_BLOCKED_DOMAINS = ['x.com', 'twitter.com', 'linkedin.com'];
+
+const _ogCache = {};
+
+async function fetchSecondaryOgImage(container, fallbackClass) {
+  const url = container.getAttribute('data-url');
+  const placeholder = container.querySelector('[class$="-placeholder"]');
+  if (!placeholder) return;
+
+  const showFallback = (char) => {
+    const source = container.getAttribute('data-source');
+    const fallback = document.createElement('div');
+    fallback.className = fallbackClass;
+    if (fallbackClass === 'post-og-fallback' && source) {
+      fallback.setAttribute('data-source', source);
+      if (source === 'x') {
+        fallback.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`;
+      } else if (source === 'linkedin') {
+        fallback.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`;
+      } else {
+        fallback.textContent = char;
+      }
+    } else {
+      fallback.textContent = char;
+    }
+    placeholder.replaceWith(fallback);
+  };
+
+  if (!url || url === '#') { showFallback('↗'); return; }
+
+  // 1. Skip blocked domains immediately — no fetch attempt
+  try {
+    const hostname = new URL(url).hostname.replace('www.', '');
+    if (OG_BLOCKED_DOMAINS.some(d => hostname === d || hostname.endsWith('.' + d))) {
+      showFallback('↗');
+      return;
+    }
+  } catch { showFallback('↗'); return; }
+
+  // 2. Static OG_IMAGE_MAP (instant, no network)
+  if (OG_IMAGE_MAP[url] !== undefined) {
+    if (!OG_IMAGE_MAP[url]) { showFallback(url.charAt(8).toUpperCase()); return; }
+    loadImg(OG_IMAGE_MAP[url], placeholder, fallbackClass, '↗');
+    return;
+  }
+
+  // 3. In-session dedup cache
+  if (_ogCache[url] !== undefined) {
+    if (!_ogCache[url]) { showFallback('↗'); return; }
+    loadImg(_ogCache[url], placeholder, fallbackClass, '↗');
+    return;
+  }
+
+  // 4. localStorage persistent cache (survives reloads, no API call needed)
+  const persisted = _loadPersistedCache();
+  if (persisted[url] !== undefined) {
+    const imgUrl = persisted[url].url;
+    _ogCache[url] = imgUrl;
+    if (!imgUrl) { showFallback('↗'); return; }
+    loadImg(imgUrl, placeholder, fallbackClass, '↗');
+    return;
+  }
+
+  // 5. Microlink API — last resort
+  try {
+    const api = `https://api.microlink.io/?url=${encodeURIComponent(url)}&embed=image.url`;
+    const res = await fetch(api);
+    const json = await res.json();
+    const imgUrl = json?.data?.image?.url || null;
+    _ogCache[url] = imgUrl;
+    _persistOgEntry(url, imgUrl);
+    if (!imgUrl) { showFallback('↗'); return; }
+    loadImg(imgUrl, placeholder, fallbackClass, '↗');
+  } catch {
+    _ogCache[url] = null;
+    _persistOgEntry(url, null);
+    showFallback('↗');
+  }
+}
+
+function loadImg(src, placeholder, fallbackClass, fallbackChar) {
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = '';
+  img.loading = 'lazy';
+  img.onload = () => { img.style.opacity = '1'; };
+  img.onerror = () => {
+    const fallback = document.createElement('div');
+    fallback.className = fallbackClass;
+    fallback.textContent = fallbackChar;
+    img.replaceWith(fallback);
+  };
+  placeholder.replaceWith(img);
+}
+
+renderArticles();
+renderPosts();
+
+// ── VIEW SWITCHING ──
+let activeView = 'tools';
+
+function switchView(view) {
+  // Hide all views
+  document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+  // Show target view
+  document.getElementById(`view-${view}`).classList.add('active');
+  // Update active state on ALL filter buttons
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (view === 'tools') {
+    document.querySelector('[data-filter="all"]').classList.add('active');
+  } else {
+    document.querySelector(`[data-view="${view}"]`).classList.add('active');
+  }
+  activeView = view;
+}
+
+document.querySelectorAll('.filter-btn[data-view]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    switchView(btn.dataset.view);
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  animateToolStats();
+});
+
+function animateToolStats() {
+  const nums = document.querySelectorAll('.stat-num');
+  nums.forEach((el) => animateStat(el));
+}
+
+function animateStat(el) {
+  const target = parseInt(el.dataset.target || '0', 10);
+  const duration = 1200;
+  const start = performance.now();
+
+  function frame(now) {
+    const elapsed = now - start;
+    const t = Math.min(1, elapsed / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    const value = Math.round(target * eased);
+    el.textContent = value;
+    if (t < 1) {
+      requestAnimationFrame(frame);
+    }
+  }
+
+  requestAnimationFrame(frame);
+}
+
+function setupCardImageObserver() {
+  const imageContainers = document.querySelectorAll('.card-image[data-url]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const container = entry.target;
+      const url = container.getAttribute('data-url');
+      if (!url) return;
+      observer.unobserve(container);
+      const idx = parseInt(container.closest('.card').dataset.idx || '0', 10);
+      const delay = (idx % 5) * 100;
+      setTimeout(() => fetchOgImage(container), delay);
+    });
+  }, { rootMargin: '100px', threshold: 0 });
+  imageContainers.forEach((el) => observer.observe(el));
+}
+
+function fetchOgImage(container) {
+  const url = container.getAttribute('data-url');
+  if (!url) return;
+  const imageUrl = OG_IMAGE_MAP[url];
+  const placeholder = container.querySelector('.card-image-placeholder');
+  if (!placeholder) return;
+  if (!imageUrl) {
+    const toolName = container.closest('.card').querySelector('.card-name').textContent.trim();
+    const initial = toolName.charAt(0).toUpperCase();
+    const fallback = document.createElement('div');
+    fallback.className = 'card-image-fallback';
+    fallback.textContent = initial;
+    placeholder.replaceWith(fallback);
+    return;
+  }
+  const img = document.createElement('img');
+  img.src = imageUrl;
+  img.alt = '';
+  img.loading = 'lazy';
+  img.onload = () => { img.style.opacity = '1'; };
+  img.onerror = () => {
+    const toolName = container.closest('.card').querySelector('.card-name').textContent.trim();
+    const initial = toolName.charAt(0).toUpperCase();
+    const fallback = document.createElement('div');
+    fallback.className = 'card-image-fallback';
+    fallback.textContent = initial;
+    img.replaceWith(fallback);
+  };
+  placeholder.replaceWith(img);
+}
+
+function openModal(tool) {
+  visibleTools = TOOLS.filter((_, i) => {
+    const card = document.querySelector(`.card[data-idx="${i}"]`);
+    return card && !card.classList.contains('hidden');
+  });
+  currentToolIndex = visibleTools.indexOf(tool);
+  renderModal(tool);
+  const backdrop = document.getElementById('modal-backdrop');
+  backdrop.classList.remove('modal-hidden');
+  requestAnimationFrame(() => backdrop.classList.add('modal-open'));
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const backdrop = document.getElementById('modal-backdrop');
+  backdrop.classList.remove('modal-open');
+  setTimeout(() => {
+    backdrop.classList.add('modal-hidden');
+    document.body.style.overflow = '';
+  }, 220);
+}
+
+function renderModal(tool) {
+  const domain = tool.website ? new URL(tool.website).hostname.replace('www.', '') : '';
+  document.getElementById('modal-eyebrow').textContent =
+    [tool.category, domain].filter(Boolean).join(' · ');
+
+  document.getElementById('modal-title').textContent = tool.name;
+
+  const tagsEl = document.getElementById('modal-tags');
+  tagsEl.innerHTML = tool.maturity
+    ? `<span class="maturity-tag ${getMaturityClass(tool.maturity)}">${tool.maturity}</span>`
+    : '';
+
+  document.getElementById('modal-description').textContent = tool.whatItIs || '';
+
+  const factsEl = document.getElementById('modal-facts');
+  factsEl.innerHTML = [
+    tool.speedAdvantage ? `<div class="modal-fact"><span class="modal-fact-label">Speed Advantage</span><span class="modal-fact-value">${tool.speedAdvantage}</span></div>` : '',
+    tool.whatItIsNot    ? `<div class="modal-fact"><span class="modal-fact-label">What It's Not</span><span class="modal-fact-value not">${tool.whatItIsNot}</span></div>` : '',
+    tool.whatsGreatFor  ? `<div class="modal-fact full"><span class="modal-fact-label">Great For</span><span class="modal-fact-value">${tool.whatsGreatFor}</span></div>` : ''
+  ].join('');
+
+  const steps = parseSteps(tool.flowInSteps);
+  const flowEl = document.getElementById('modal-flow');
+  flowEl.innerHTML = steps.length ? `
+    <div class="flow-label">Flow in Steps</div>
+    ${steps.map((s, i) => `<div class="flow-step"><span class="flow-num">${String(i+1).padStart(2, '0')}</span><span class="flow-text">${s}</span></div>`).join('')}
+  ` : '';
+
+  const imgContainer = document.getElementById('modal-image');
+  imgContainer.innerHTML = '<div id="modal-image-placeholder"></div>';
+  if (tool.website) {
+    const src = OG_IMAGE_MAP[tool.website];
+    if (src) {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = '';
+      img.loading = 'eager';
+      img.onload = () => { img.style.opacity = '1'; };
+      imgContainer.innerHTML = '';
+      imgContainer.appendChild(img);
+      const overlay = document.createElement('div');
+      overlay.id = 'modal-image-overlay';
+      imgContainer.appendChild(overlay);
+    }
+  }
+
+  const visitBtn = document.getElementById('modal-visit-btn');
+  if (tool.website) {
+    visitBtn.href = tool.website;
+    visitBtn.style.display = '';
+  } else {
+    visitBtn.style.display = 'none';
+  }
+}
+
+document.getElementById('nav-prev').addEventListener('click', () => {
+  if (currentToolIndex > 0) {
+    currentToolIndex--;
+    renderModal(visibleTools[currentToolIndex]);
+  }
+});
+
+document.getElementById('nav-next').addEventListener('click', () => {
+  if (currentToolIndex < visibleTools.length - 1) {
+    currentToolIndex++;
+    renderModal(visibleTools[currentToolIndex]);
+  }
+});
+
+document.getElementById('modal-backdrop').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal-backdrop')) closeModal();
+});
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+
+document.addEventListener('keydown', e => {
+  const isOpen = document.getElementById('modal-backdrop').classList.contains('modal-open');
+  if (!isOpen) return;
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'ArrowLeft' && currentToolIndex > 0) {
+    currentToolIndex--;
+    renderModal(visibleTools[currentToolIndex]);
+  }
+  if (e.key === 'ArrowRight' && currentToolIndex < visibleTools.length - 1) {
+    currentToolIndex++;
+    renderModal(visibleTools[currentToolIndex]);
+  }
+});
+</script>
+
+<!-- ── Agent View ── -->
+<div id="slash-drawer">
+  <div id="slash-terminal">
+    <div id="slash-output"></div>
+    <div id="slash-input-row">
+      <span id="slash-prompt">&gt;</span>
+      <input id="slash-input" type="text" autocomplete="off" spellcheck="false" placeholder="https://..." />
+    </div>
+  </div>
+</div>
+
+<div id="agent-view">
+  <div class="agent-inner">
+    <div class="agent-header">
+      <div class="agent-site-name">richpeniche.github.io/design-ai</div>
+      <div class="agent-tagline">Design &amp; AI Discoveries — A curated index of tools, articles, and references at the intersection of design and AI.</div>
+      <div class="agent-meta">// machine-readable view · <span id="agent-tool-count"></span> tools · <span id="agent-article-count"></span> articles · <span id="agent-post-count"></span> posts<span class="agent-cursor"></span></div>
+    </div>
+    <div id="agent-tools-section"></div>
+    <div id="agent-articles-section"></div>
+    <div id="agent-posts-section"></div>
+  </div>
+</div>
+
+<!-- ── Toggle Pill ── -->
+<div id="agent-toggle" role="button" aria-label="Switch between human and agent view" onclick="toggleAgentView()">
+  <div class="toggle-option active" id="toggle-human">
+    <div class="toggle-radio"></div>
+    HUMAN
+  </div>
+  <div class="toggle-option" id="toggle-agent">
+    <div class="toggle-radio"></div>
+    MACHINE
+  </div>
+</div>
+
+<script>
+let agentMode = false;
+
+function toggleAgentView() {
+  agentMode = !agentMode;
+  document.getElementById('agent-view').classList.toggle('visible', agentMode);
+  document.getElementById('toggle-human').classList.toggle('active', !agentMode);
+  document.getElementById('toggle-agent').classList.toggle('active', agentMode);
+  document.body.style.overflow = agentMode ? 'hidden' : '';
+  if (agentMode) renderAgentView();
+}
+
+function maturityTag(m) {
+  if (!m) return '';
+  const cls = m === 'Stable' ? 'stable' : m === 'Beta' ? 'beta' : m === 'Active Dev' ? 'active' : 'experimental';
+  return `<span class="agent-tag agent-tag--${cls}">${m}</span>`;
+}
+
+function renderAgentView() {
+  // Group tools by category
+  const categories = {};
+  TOOLS.forEach(t => {
+    if (!categories[t.category]) categories[t.category] = [];
+    categories[t.category].push(t);
+  });
+
+  // Tool count
+  document.getElementById('agent-tool-count').textContent = TOOLS.length;
+  document.getElementById('agent-article-count').textContent = ARTICLES.length;
+  document.getElementById('agent-post-count').textContent = POSTS.length;
+
+  // Tools by category
+  let toolsHTML = '';
+  Object.entries(categories).forEach(([cat, tools]) => {
+    toolsHTML += `<div class="agent-section">
+      <div class="agent-section-title"># ${cat}</div>`;
+    tools.forEach(t => {
+      toolsHTML += `<div class="agent-tool">
+        <div class="agent-tool-name"><a href="${t.website}" target="_blank" rel="noopener">${t.name}</a>${maturityTag(t.maturity)}</div>
+        <div class="agent-field"><span class="agent-field-key">what_it_is</span><span class="agent-field-val">${t.whatItIs}</span></div>
+        <div class="agent-field"><span class="agent-field-key">what_it_is_not</span><span class="agent-field-val">${t.whatItIsNot}</span></div>
+        <div class="agent-field"><span class="agent-field-key">best_for</span><span class="agent-field-val">${t.whatsGreatFor}</span></div>
+        <div class="agent-field"><span class="agent-field-key">speed_advantage</span><span class="agent-field-val">${t.speedAdvantage}</span></div>
+        <div class="agent-field"><span class="agent-field-key">flow</span><span class="agent-field-val">${t.flowInSteps}</span></div>
+        <div class="agent-field"><span class="agent-field-key">url</span><span class="agent-field-val"><a href="${t.website}" target="_blank" rel="noopener" style="color:#a8d8a8;text-decoration:none">${t.website}</a></span></div>
+      </div>`;
+    });
+    toolsHTML += `</div>`;
+  });
+  document.getElementById('agent-tools-section').innerHTML = toolsHTML;
+
+  // Articles
+  let articlesHTML = `<div class="agent-section">
+    <div class="agent-section-title"># Articles</div>`;
+  ARTICLES.forEach(a => {
+    articlesHTML += `<div class="agent-article">
+      <span class="agent-article-meta">[article]</span>
+      <span><a href="${a.url}" target="_blank" rel="noopener">${a.headline}</a> — ${a.author}</span>
+    </div>`;
+  });
+  articlesHTML += `</div>`;
+  document.getElementById('agent-articles-section').innerHTML = articlesHTML;
+
+  // Posts
+  let postsHTML = `<div class="agent-section">
+    <div class="agent-section-title"># Posts &amp; References</div>`;
+  POSTS.forEach(p => {
+    postsHTML += `<div class="agent-post">
+      <span class="agent-post-meta">[${p.source}]</span>
+      <a href="${p.url}" target="_blank" rel="noopener"> ${p.headline}</a>
+      <span class="agent-post-meta"> · ${p.author}</span>
+    </div>`;
+  });
+  postsHTML += `</div>`;
+  document.getElementById('agent-posts-section').innerHTML = postsHTML;
+}
+</script>
+<script>
+// ── Slash Command ──
+const CATEGORY_ORDER = [
+  'Figma MCPs', 'Design-to-Code', 'Vibe-Code / Builders',
+  'AI Visual Generation', 'UI Components & Systems', 'AI Design Skills',
+  'Research', 'Web Publishing', 'Presentations', 'Marketing & Brand', 'Color & Tokens'
+];
+
+let slashState = null;
+
+function getSlashDrawer() {
+  return document.getElementById('slash-drawer');
+}
+
+function getSlashTerminal() {
+  return document.getElementById('slash-terminal');
+}
+
+function getSlashOutput() {
+  return document.getElementById('slash-output');
+}
+
+function getSlashInput() {
+  return document.getElementById('slash-input');
+}
+
+function getSlashInputRow() {
+  return document.getElementById('slash-input-row');
+}
+
+function slashIsVisible() {
+  const drawer = getSlashDrawer();
+  return !!drawer && drawer.classList.contains('visible');
+}
+
+function slashScrollToBottom() {
+  const terminal = getSlashTerminal();
+  if (terminal) {
+    terminal.scrollTop = terminal.scrollHeight;
+  }
+}
+
+function slashPrintLine(text, variant) {
+  const output = getSlashOutput();
+  if (!output) return null;
+  const line = document.createElement('div');
+  line.className = 'slash-line';
+  if (variant) line.classList.add(variant);
+  line.textContent = text;
+  output.appendChild(line);
+  slashScrollToBottom();
+  return line;
+}
+
+function slashPrintHtml(html, variant) {
+  const output = getSlashOutput();
+  if (!output) return null;
+  const line = document.createElement('div');
+  line.className = 'slash-line';
+  if (variant) line.classList.add(variant);
+  line.innerHTML = html;
+  output.appendChild(line);
+  slashScrollToBottom();
+  return line;
+}
+
+function slashResetState() {
+  slashState = {
+    running: false,
+    url: '',
+    name: '',
+    description: ''
+  };
+  const output = getSlashOutput();
+  if (output) output.innerHTML = '';
+  const input = getSlashInput();
+  if (input) {
+    input.value = '';
+    input.placeholder = 'https://...';
+    input.disabled = false;
+  }
+  const row = getSlashInputRow();
+  if (row) {
+    row.style.display = 'flex';
+    row.style.borderTopColor = '#2e2c29';
+  }
+}
+
+function openSlashDrawer() {
+  const drawer = getSlashDrawer();
+  if (!drawer) return;
+  slashResetState();
+  drawer.classList.add('visible');
+  slashPrintLine('/ ADD NEW TOOL', 'highlight');
+  slashPrintLine('Paste a tool URL and press Enter.');
+  const row = getSlashInputRow();
+  if (row) {
+    row.style.borderTopColor = 'transparent';
+  }
+  const input = getSlashInput();
+  if (input) {
+    setTimeout(() => input.focus(), 10);
+  }
+}
+
+function slashGoodbyeAndClose() {
+  const input = getSlashInput();
+  if (input) input.disabled = true;
+  slashPrintLine('Goodbye.', 'highlight');
+  setTimeout(() => {
+    const drawer = getSlashDrawer();
+    if (drawer) drawer.classList.remove('visible');
+    slashResetState();
+  }, 800);
+}
+
+async function slashFetchMetadata(url) {
+  const line = slashPrintLine('Fetching page metadata...');
+  let title = '';
+  let description = '';
+  try {
+    const mlRes = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(url)}`);
+    const mlJson = await mlRes.json();
+    if (mlJson.status === 'success') {
+      title = mlJson.data?.title || '';
+      description = mlJson.data?.description || '';
+    }
+    if (line) {
+      line.textContent = '  ✓ Metadata fetched';
+      line.classList.add('ok');
+    }
+  } catch (e) {
+    if (line) {
+      line.textContent = '  ✗ Could not fetch metadata — using URL as name';
+      line.classList.add('err');
+    }
+    try {
+      const u = new URL(url);
+      title = u.hostname;
+    } catch (_) {
+      title = url;
+    }
+    description = '';
+  }
+
+  slashState.name = title || url;
+  slashState.description = description || '';
+
+  if (slashState.description) {
+    const shortDesc = slashState.description.length > 100
+      ? `${slashState.description.slice(0, 100)}...`
+      : slashState.description;
+    slashPrintLine(`  name: ${slashState.name}`);
+    slashPrintLine(`  description: ${shortDesc}`);
+  } else {
+    slashPrintLine(`  name: ${slashState.name}`);
+  }
+}
+
+async function slashHandleInput() {
+  const input = getSlashInput();
+  if (!slashState || !input) return;
+  const raw = input.value.trim();
+
+  if (!raw) {
+    return;
+  }
+
+  const lower = raw.toLowerCase();
+  if (['close', 'exit', 'quit'].includes(lower)) {
+    slashGoodbyeAndClose();
+    return;
+  }
+
+  if (slashState.running) {
+    // While a run is in progress, only allow close/exit/quit (handled above)
+    return;
+  }
+
+  // First and only required user input: URL
+  slashState.running = true;
+  slashState.url = raw;
+  input.value = '';
+
+  const row = getSlashInputRow();
+  if (row) {
+    row.style.display = 'none';
+  }
+
+  slashPrintLine(`URL received: ${slashState.url}`);
+  await slashFetchMetadata(slashState.url);
+  await slashRunGitHubFlow();
+}
+
+async function slashRunGitHubFlow() {
+  if (!slashState) return;
+
+  const {
+    url,
+    name,
+    description
+  } = slashState;
+
+  if (!url || !name) {
+    slashPrintLine('URL and Name are required.', 'err');
+    return;
+  }
+
+  const category = 'Research';
+  const maturity = 'Beta';
+
+  slashPrintLine('Building tool entry...');
+
+  const cleanWhatItIs = (description || '').trim();
+  const whatItIs = cleanWhatItIs
+    ? (cleanWhatItIs.length > 200 ? `${cleanWhatItIs.slice(0, 200)}...` : cleanWhatItIs)
+    : url;
+
+  const whatItIsNot = '—';
+  const speedAdvantage = '—';
+  const whatsGreatFor = '—';
+  const flowInSteps = '—';
+
+  slashPrintLine('  ✓ Entry built', 'ok');
+
+  try {
+  try {
+    // After entry is built, call serverless function
+    slashPrintLine('Getting branch reference...', 'active');
+
+    const response = await fetch('/api/add-tool', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        url, name, category, maturity,
+        whatItIs, whatItIsNot, speedAdvantage, whatsGreatFor, flowInSteps
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) throw new Error(result.error || 'Server error');
+
+    // Print success steps
+    slashPrintLine('  ✓ Branch created', 'ok');
+    slashPrintLine('  ✓ File patched', 'ok');
+    slashPrintLine('  ✓ Committed to branch', 'ok');
+    slashPrintLine('  ✓ Pull request opened', 'ok');
+    slashPrintLine('', '');
+    if (result.pr_url) {
+      slashPrintHtml(`PR ready → <a href="${result.pr_url}" target="_blank" rel="noopener">${result.pr_url}</a>`, 'highlight');
+      slashPrintLine('', '');
+    }
+    slashPrintLine('Type \'close\', \'exit\', or press ESC to dismiss.', '');
+
+    const row = getSlashInputRow();
+    const input = getSlashInput();
+    if (row) {
+      row.style.display = 'flex';
+      row.style.borderTopColor = '#2e2c29';
+    }
+    if (input) {
+      input.value = '';
+      input.disabled = false;
+      setTimeout(() => input.focus(), 10);
+    }
+  } catch (e) {
+    slashPrintLine(`Error: ${e.message || e}`, 'err');
+    slashPrintLine(`Type 'close', 'exit', or press ESC to dismiss.`);
+  }
+}
+
+function getNextCategory(category) {
+  const idx = CATEGORY_ORDER.indexOf(category);
+  return CATEGORY_ORDER[idx + 1] || 'END';
+}
+
+// Keyboard listeners
+document.addEventListener('keydown', e => {
+  const activeTag = document.activeElement.tagName;
+  const isFormElement = ['INPUT','TEXTAREA','SELECT'].includes(activeTag) || document.activeElement.isContentEditable;
+  if (e.key === '/' && !isFormElement) {
+    e.preventDefault();
+    openSlashDrawer();
+  }
+  if (e.key === 'Escape' && slashIsVisible()) {
+    e.preventDefault();
+    slashGoodbyeAndClose();
+  }
+});
+
+const slashInputEl = document.getElementById('slash-input');
+if (slashInputEl) {
+  slashInputEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      slashHandleInput();
+    }
+  });
+}
+</script>
+</body>
+</html>
