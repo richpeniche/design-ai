@@ -7,7 +7,8 @@ on:
       - 'index.html'   # only runs when index.html changes
 
 permissions:
-  contents: write      # needed so the Action can commit back
+  contents: write      # needed to commit the cache update
+  pull-requests: write # needed to open the auto-PR
 
 jobs:
   prefetch:
@@ -25,11 +26,16 @@ jobs:
       - name: Run prefetch script
         run: node prefetch-images.mjs
 
-      - name: Commit updated index.html
-        run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html
-          # Only commit if index.html actually changed
-          git diff --cached --quiet || git commit -m "chore: update OG image cache [skip ci]"
-          git push
+      - name: Open PR with updated OG cache
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore: update OG image cache [skip ci]"
+          branch: chore/og-image-cache-update
+          delete-branch: true
+          title: "chore: update OG image cache"
+          body: |
+            Automated update of prefetched OG image URLs in `index.html`.
+
+            Triggered by a change to `index.html` on `main`.
+          labels: "automated,chore"
+          author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
